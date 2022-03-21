@@ -22,7 +22,6 @@ namespace ARS.Inventory.Management.Domain.Models
         }
 
         public virtual ICollection<Order> Orders { get; set; }
-        public bool IsAdmin { get; set; }
 
     }
 }

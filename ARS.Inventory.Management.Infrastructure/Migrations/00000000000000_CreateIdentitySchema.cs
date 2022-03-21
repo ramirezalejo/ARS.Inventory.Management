@@ -40,7 +40,12 @@ namespace ARS.Inventory.Management.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    CardNumber = table.Column<string>(nullable: true),
+                    RegisteredDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,7 +198,7 @@ namespace ARS.Inventory.Management.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateTable(
-                name: "dbo.Categories",
+                name: "Category",
                 columns: c => new
                 {
                     Id = c.Column<int>(nullable: false)
@@ -203,7 +208,7 @@ namespace ARS.Inventory.Management.Data.Migrations
                 constraints: t => { t.PrimaryKey("PK_CategoryId", x => x.Id); }
              );
             migrationBuilder.CreateTable(
-                name: "dbo.Suppliers",
+                name: "Supplier",
                 columns: c => new
                 {
                     Id = c.Column<int>(nullable: false)
@@ -217,7 +222,7 @@ namespace ARS.Inventory.Management.Data.Migrations
                 );
 
             migrationBuilder.CreateTable(
-                name: "dbo.Products",
+                name: "Product",
                 columns: c => new
                 {
                     Id = c.Column<int>(nullable: false)
@@ -234,36 +239,36 @@ namespace ARS.Inventory.Management.Data.Migrations
                 {
                     t.PrimaryKey("PK_ProductId", t => t.Id);
                     t.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
+                        name: "FK_Product_Category_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "dbo.Categories",
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     t.ForeignKey(
-                        name: "FK_Products_Suppliers_SupplierId",
+                        name: "FK_Product_Supplier_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "dbo.Suppliers",
+                        principalTable: "Supplier",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateIndex(
                 name: "IX_Producs_CategoryId",
-                table: "dbo.Products",
+                table: "Product",
                 column: "CategoryId");
             migrationBuilder.CreateIndex(
                 name: "IX_Producs_SupplierId",
-                table: "dbo.Suppliers",
+                table: "Product",
                 column: "SupplierId");
 
 
             migrationBuilder.CreateTable(
-                name: "dbo.Orders",
+                name: "Order",
                 columns: c => new
                 {
                     Id = c.Column<int>(nullable: false)
                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = c.Column<int>(nullable: false),
-                    UserId = c.Column<string>(maxLength: 128),
+                    UserId = c.Column<string>(maxLength: 450),
                     OrderDate = c.Column<DateTime>(nullable: false),
                     ConfirmDate = c.Column<DateTime>(nullable: false),
                     ConfirmStatus = c.Column<bool>(nullable: false),
@@ -273,35 +278,35 @@ namespace ARS.Inventory.Management.Data.Migrations
                 {
                     t.PrimaryKey("PK_OrderId", t => t.Id);
                     t.ForeignKey(
-                       name: "FK_Orders_Products_ProductId",
+                       name: "FK_Order_Product_ProductId",
                        column: x => x.ProductId,
-                       principalTable: "dbo.Products",
+                       principalTable: "Product",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.Restrict);
                     t.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_UserId",
+                        name: "FK_Order_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductId",
-                table: "dbo.Orders",
+                name: "IX_Order_ProductId",
+                table: "Order",
                 column: "ProductId");
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId",
-                table: "dbo.Orders",
+                name: "IX_Order_UserId",
+                table: "Order",
                 column: "UserId");
 
             migrationBuilder.CreateTable(
-                name: "dbo.Purchases",
+                name: "Purchase",
                 columns: c => new
                 {
                     Id = c.Column<int>(nullable: false)
                     .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = c.Column<int>(nullable: false),
-                    UserId = c.Column<string>(maxLength: 128),
+                    UserId = c.Column<string>(maxLength: 450),
                     Quantity = c.Column<int>(nullable: false),
                     CreatedTime = c.Column<DateTime>(nullable: false),
                     DeliveryTime = c.Column<DateTime>(nullable: false, precision: 7),
@@ -313,27 +318,39 @@ namespace ARS.Inventory.Management.Data.Migrations
                 {
                     t.PrimaryKey("PK_PurchaseId", t => t.Id);
                     t.ForeignKey(
-                       name: "FK_Purchases_Products_ProductId",
+                       name: "FK_Purchase_Product_ProductId",
                        column: x => x.ProductId,
-                       principalTable: "dbo.Products",
+                       principalTable: "Product",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.Restrict);
                     t.ForeignKey(
-                       name: "FK_Purchases_AspNetUsers_UserId",
+                       name: "FK_Purchase_AspNetUsers_UserId",
                        column: x => x.UserId,
-                       principalTable: "dbo.AspNetUsers",
+                       principalTable: "AspNetUsers",
                        principalColumn: "Id",
                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-               name: "IX_Purchases_ProductId",
-               table: "dbo.Purchases",
+               name: "IX_Purchase_ProductId",
+               table: "Purchase",
                column: "ProductId");
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_UserId",
-                table: "dbo.Purchases",
+                name: "IX_Purchase_UserId",
+                table: "Purchase",
                 column: "UserId");
+
+            migrationBuilder.InsertData("AspNetRoles",
+                new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                new string[] { "1", "Admin", "Admin", "" });
+
+            migrationBuilder.InsertData("AspNetRoles",
+                new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                new string[] { "2", "Vendedor", "Seller", "" });
+
+            migrationBuilder.InsertData("AspNetRoles",
+                new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                new string[] { "3", "Invitado", "Guest", "" });
 
         }
 
@@ -358,19 +375,19 @@ namespace ARS.Inventory.Management.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "dbo.Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
-                name: "dbo.Purchases");
+                name: "Purchase");
 
             migrationBuilder.DropTable(
-                name: "dbo.Products");
+                name: "Product");
 
             migrationBuilder.DropTable(
-                name: "dbo.Suppliers");
+                name: "Supplier");
 
             migrationBuilder.DropTable(
-                name: "dbo.Categories");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

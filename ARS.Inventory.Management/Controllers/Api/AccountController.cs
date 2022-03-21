@@ -14,11 +14,13 @@ namespace ARS.Inventory.Management.Controllers
         private const string LocalLoginProvider = "Local";
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger _logger;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         [Route("UserInfo")]
@@ -120,7 +122,7 @@ namespace ARS.Inventory.Management.Controllers
             return Ok();
         }
 
-       
+
 
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
@@ -152,7 +154,7 @@ namespace ARS.Inventory.Management.Controllers
         }
 
         //// POST api/Account/Register
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterBindingModel model)
         {
@@ -174,18 +176,61 @@ namespace ARS.Inventory.Management.Controllers
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
-            if (model.RoleName != null)
-            {
-                await _userManager.AddToRoleAsync(user, model.RoleName);
-            }
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
+            try
+            {
+                if (model.RoleName != null)
+                {
+                    await _userManager.AddToRoleAsync(user, model.RoleName);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
             return Ok();
         }
+
+        [AllowAnonymous]
+        [Route("login")]
+        public async Task<IActionResult> OnPostAsync(LoginBindingModel input)
+        {
+
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, 
+                // set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(input.Username,
+                                   input.Password, false, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return Ok();
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    ModelState.AddModelError(string.Empty, "User account locked out.");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                }
+
+                if (result == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
 
         [Route("EditUser")]
         [HttpPut]
@@ -223,7 +268,7 @@ namespace ARS.Inventory.Management.Controllers
         {
             var user = await _userManager.FindByIdAsync(id);
 
-            if(user != null)
+            if (user != null)
             {
                 await _userManager.DeleteAsync(user);
                 return Ok("User deleted successfuly");
@@ -232,7 +277,7 @@ namespace ARS.Inventory.Management.Controllers
             return BadRequest("Error !");
         }
 
-        
+
 
         #region Helpers
 

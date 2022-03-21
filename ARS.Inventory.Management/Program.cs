@@ -12,6 +12,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder
+        .AddFilter("Microsoft", LogLevel.Warning)
+        .AddFilter("System", LogLevel.Warning)
+        .AddFilter("NonHostConsoleApp.Program", LogLevel.Debug)
+        .AddConsole();
+});
+ILogger logger = loggerFactory.CreateLogger<Program>();
+
+builder.Services.AddSingleton<ILogger>(logger);
+
+
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddOptions();
@@ -43,7 +56,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 //builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
 builder.Services.AddDbContext<InventoryDbContext>();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<InventoryDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -56,6 +70,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+
 }
 else
 {

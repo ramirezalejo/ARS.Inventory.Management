@@ -86,15 +86,16 @@
                         FirstName: $("#firstName").val(),
                         LastName: $("#lastName").val(),
                         CardNumber: $("#cardNumber").val(),
-                        PhoneNumber: $("#phoneNumber").val()
+                        PhoneNumber: $("#phoneNumber").val(),
+                        RoleName: "Guest"
                     },
                     success: function (response) {
                         toastr.success("User has been registered successfully !", { timeOut: 3000 })
                         window.location.href = "/UserManagement/Login";
                     },
-                    error: function (jqXHR) {
+                    error: function (error) {
                         toastr.error("Encountered with a error !", { timeOut: 3000 })
-                        alert("Error !");
+                        alert("Error Registering user!");
                     }
                 });
             });
