@@ -16,7 +16,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-10 ">
-                            <button type="submit" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">Save</button>
+                            <button type="button" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">Save</button>
                             <button class="btn btn-space btn-default " style="height: 40px; font-size: 14px;">Cancel</button>
                         </div>
                     </div>
@@ -65,24 +65,14 @@
 </div>
 
 <script type="text/javascript">
-var token = sessionStorage.getItem("accessToken");
-var headers = {};
-headers.Authorization = "Bearer " + token;
 
-$(document).ready(function() {
-  if (token == null) {
-    toastr.info("Please try again after signing up!");
-    window.location.href = "/UserManagement/Login";
-  }
-});
 
 var Delete = function(id) {
   $.ajax({
     url: "/api/Categories/" + id,
     method: "DELETE",
-    headers: headers,
     success: function() {
-                    window.location.replace("/Product/CategoryList");
+        window.location.replace("/Product/CategoryList");
 
     },
     error: function(jqXHR) {
@@ -95,18 +85,18 @@ $("#btnSave").click(function() {
   $.ajax({
     url: "/api/Categories",
     method: "POST",
-    headers: headers,
     data: {
       Name: $("#categoryName").val()
     },
     success: function() {
         window.location.href = "/Product/";
-                    window.location.replace("/Product/CategoryList");
+        window.location.replace("/Product/CategoryList");
 
 
     },
-    error: function(jqXHR) {
-      alert("Error !");
+    error: function(error) {
+      $('#divErrorText').text(error.responseText);
+      $('#divError').show('fade');
     }
   });
 });

@@ -1,4 +1,6 @@
 ﻿@model ARS.Inventory.Management.Models.SupplierViewModel
+
+
 <div class="row">
     <div class="col-md-12" style="margin-top: -15px">
 
@@ -36,7 +38,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-10 ">
-                                <button type="submit" class="btn btn-space btn-warning" style="font-size: 17px" width: 80px; height:38px;" id="btnUpdate">Update</button>
+                                <button type="button" class="btn btn-space btn-warning" style="font-size: 17px" width: 80px; height:38px;" id="btnUpdate">Update</button>
                                 <button class="btn btn-space btn-default " style="height: 40px; font-size: 14px;">Cancel</button>
                                 <input type="hidden" id="supplierId" value="@Model.Id" />
                             </div>
@@ -79,7 +81,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-2 col-sm-10 ">
-                                <button type="submit" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">Save</button>
+                                <button type="button" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">Save</button>
                                 <button class="btn btn-space btn-default " style="height: 40px; font-size: 14px;">Cancel</button>
                             </div>
                         </div>
@@ -93,20 +95,16 @@
 
 
 <script type="text/javascript">
+    $(function() {
+});
 
     $(document).ready(function() {
-  var token = sessionStorage.getItem("accessToken");
-  var headers = {};
-
-  if (token == null) {
-    window.location.href = "/UserManagement/Login";
-  } else {
-    headers.Authorization = "Bearer " + token;
+ 
     $("#btnSave").click(function() {
       $.ajax({
         url: "/api/Suppliers",
         method: "POST",
-        headers: headers,
+        async: false,
         data: {
           Name: $("#supplierName").val(),
           Email: $("#supplierEmail").val(),
@@ -114,12 +112,13 @@
           PhoneNumber: $("#supplierPhone").val()
         },
         success: function() {
-          toastr.success("Supplier added successfully !", { timeOut: 2000 });
-          window.location.href = "/Supplier/ListSupplier";
+          toastr.success("Supplier added successfully !", { timeOut: 5000 });
+          document.location.href = "/Supplier/ListSupplier", true;
         },
-        error: function(jqXHR) {
-          alert("Error !");
-          window.location.href = "/Supplier/ListSupplier";
+        error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+            $('#divErrorText').text(error.responseText);
+            $('#divError').show('fade');
         }
       });
     });
@@ -129,7 +128,6 @@
       $.ajax({
         url: "/api/Suppliers",
         method: "PUT",
-        headers: headers,
         data: {
           Id: $("#supplierId").val(),
           Name: $("#supplierName").val(),
@@ -147,7 +145,6 @@
         }
       });
     });
-  }
 });
 
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ARS.Inventory.Management.Models.ProductViewModel>
+﻿@model IEnumerable<ARS.Inventory.Management.Models.ProductsViewModel>
 
 
 <div class="row">
@@ -58,23 +58,12 @@
 </div>
 
 <script>
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signin up !", { timeOut: 3000 });
-            window.location.href = "/UserManagement/Login";
-        }
-    });
 
     var Delete = function (id) {
 
         $.ajax({
             url: "/api/Products/" + id,
             method: "DELETE",
-            headers: headers,
             success: function () {
                 toastr.success("Product deleted successfully", { timeOut: 1000 })
                 window.location.replace("/Product/ListProduct");

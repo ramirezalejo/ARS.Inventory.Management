@@ -44,7 +44,6 @@ namespace ARS.Inventory.Management.Controllers
             return Ok();
         }
 
-        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
@@ -180,18 +179,7 @@ namespace ARS.Inventory.Management.Controllers
             {
                 return GetErrorResult(result);
             }
-
-            try
-            {
-                if (model.RoleName != null)
-                {
-                    await _userManager.AddToRoleAsync(user, model.RoleName);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await _userManager.AddToRoleAsync(user, model.RoleName);
 
             return Ok();
         }

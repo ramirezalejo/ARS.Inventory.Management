@@ -57,7 +57,7 @@
         // Post username, password & the grant type to /token
         url: '/api/Account/login',
         method: 'POST',
-        //contentType: 'application/json',
+        async: true,
         data: {
             Username: $("#username").val(),
             Password: $("#password").val()
@@ -73,9 +73,9 @@
             window.location.href = '/Home/Index';
 
         },
-        error: function (jqXHR) {
-           toastr.error("Encountered with a error !", { timeOut: 3000 })
-            $('#divErrorText').text(jqXHR.responseText);
+        error: function (error) {
+           toastr.error("Encountered an error !", { timeOut: 3000 })
+            $('#divErrorText').text(error.responseText);
             $('#divError').show('fade');
         }
     });

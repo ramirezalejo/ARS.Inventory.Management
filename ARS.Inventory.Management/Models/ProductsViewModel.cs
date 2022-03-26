@@ -2,7 +2,7 @@
 
 namespace ARS.Inventory.Management.Models
 {
-    public class ProductViewModel
+    public class ProductsViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace ARS.Inventory.Management.Models
         public string CategoryName { get; set; }
 
 
-        public Category Category { get; set; }
-        public Supplier Supplier { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }

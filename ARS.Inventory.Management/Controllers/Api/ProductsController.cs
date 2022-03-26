@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ARS.Inventory.Management.Controllers.Api
 {
     [Authorize]
+    [Route("/api/Products")]
     public class ProductsController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private IProductService _product;
@@ -15,11 +16,10 @@ namespace ARS.Inventory.Management.Controllers.Api
             this._product = product;
         }
 
-
         [HttpGet]
         public IActionResult GetAll()
         {
-            var result = _product.GetAll().Select(x => new ProductViewModel
+            var result = _product.GetAll().Select(x => new ProductsViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -41,7 +41,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             var result = _product.GetById(id);
             if (result != null)
             {
-                ProductViewModel vm = new ProductViewModel
+                var vm = new ProductsViewModel
                 {
                     Id = result.Id,
                     Name = result.Name,
@@ -58,7 +58,7 @@ namespace ARS.Inventory.Management.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult Insert(ProductViewModel model)
+        public IActionResult Insert(ProductsViewModel model)
         {
             Product product = new Product
             {
@@ -76,7 +76,7 @@ namespace ARS.Inventory.Management.Controllers.Api
         }
 
         [HttpPut]
-        public IActionResult Update(ProductViewModel model)
+        public IActionResult Update(ProductsViewModel model)
         {
             Product product = new Product
             {

@@ -7,6 +7,7 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         IEnumerable<Supplier> GetAll();
         Supplier GetById(int supplierId);
         void Insert(Supplier supplier);
+        Task InsertAsync(Supplier supplier);
         void Update(Supplier supplier);
         void Delete(int supplierId);
     }

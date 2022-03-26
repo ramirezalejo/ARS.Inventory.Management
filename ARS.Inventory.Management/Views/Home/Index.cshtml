@@ -60,7 +60,7 @@
                 <div class="title">Top Sales</div>
             </div>
             @*<div class="widget-chart-container">
-                    <img src="~/Content/assets/img/hdd.jpg" ">
+                <img src="~/Content/assets/img/hdd.jpg" ">
                 </div>*@
             <div class="chart-legend">
                 <table>
@@ -93,7 +93,7 @@
                 <div class="title">Most Sold Categories</div>
             </div>
             @*<div class="widget-chart-container">
-                    <img src="~/Content/assets/img/iphone7.jpg" ">
+                <img src="~/Content/assets/img/iphone7.jpg" ">
                 </div>*@
             <div class="chart-legend">
                 <table>
@@ -124,7 +124,7 @@
                 <div class="title">Most Profitable Products</div>
             </div>
             @*<div class="widget-chart-container">
-                    <img src="~/Content/assets/img/hdd.jpg" ">
+                <img src="~/Content/assets/img/hdd.jpg" ">
                 </div>*@
             <div class="chart-legend">
                 <table>
@@ -260,17 +260,3 @@
     </div>
 
 }
-
-
-
-<script>
-$(document).ready(function() {
-  var token = sessionStorage.getItem("accessToken");
-  var headers = {};
-  headers.Authorization = "Bearer " + token;
-  if (token == null) {
-    toastr.info("Please try again after signin up !", { timeOut: 3000 });
-    window.location.href = "/UserManagement/Login";
-  }
-});
-</script>

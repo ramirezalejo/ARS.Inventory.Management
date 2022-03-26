@@ -26,7 +26,7 @@ namespace ARS.Inventory.Management.Controllers
 
         public Microsoft.AspNetCore.Mvc.ActionResult Index()
         {
-            HomeViewModel vm = new HomeViewModel();
+            var vm = new HomeViewModel();
 
             //vm.TotalSuppliers = _supplier.GetAll().Count<Supplier>();
             //vm.TotalOrders = _order.GetAll().Count<Orders>();

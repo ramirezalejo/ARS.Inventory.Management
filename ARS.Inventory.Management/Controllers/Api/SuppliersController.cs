@@ -53,19 +53,28 @@ namespace ARS.Inventory.Management.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult Insert(SupplierViewModel model)
+        public async Task<IActionResult> Insert(SupplierViewModel model)
         {
-            Supplier supplier = new Supplier
+            try
             {
-                Id = model.Id,
-                Name = model.Name,
-                Adress = model.Adress,
-                PhoneNumber = model.PhoneNumber,
-                Email = model.Email
-            };
+                Supplier supplier = new Supplier
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Adress = model.Adress,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email
+                };
 
-            _supplier.Insert(supplier);
-            return Ok(supplier);
+                await _supplier.InsertAsync(supplier);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+            
+
         }
         [HttpPut]
         public IActionResult Update(SupplierViewModel model)
@@ -87,7 +96,7 @@ namespace ARS.Inventory.Management.Controllers.Api
         public IActionResult Delete(int id)
         {
             _supplier.Delete(id);
-            return Ok("Deleted Successfully !");
+            return Ok("Deleted Successfully!");
         }
     }
 }

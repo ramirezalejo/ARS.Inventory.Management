@@ -38,6 +38,12 @@ namespace ARS.Inventory.Management.Application.Services
                 categoryRepository.Insert(category);
         }
 
+        public async Task InsertAsync(Category category)
+        {
+            if (category != null)
+                await categoryRepository.InsertAsync(category);
+        }
+
         public void Update(Category category)
         {
             if (category != null)

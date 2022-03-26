@@ -1,4 +1,4 @@
-﻿@model ARS.Inventory.Management.Models.ProductViewModel
+﻿@model ARS.Inventory.Management.Models.ProductsViewModel
 
 
 
@@ -183,22 +183,11 @@
 
 
 <script>
-   var token = sessionStorage.getItem("accessToken");
-var headers = {};
-headers.Authorization = "Bearer " + token;
-
-$(document).ready(function() {
-  if (token == null) {
-        toastr.info( "Please try again after signin up !", { timeOut: 3000 });
-        window.location.href = "/UserManagement/Login";
-  }
-});
-
-    $("#btnSave").click(function() {
+  $("#btnSave").click(function() {
   $.ajax({
-    url: "http://localhost:5000/api/Products",
+    url: "/api/Products",
     method: "POST",
-    headers: headers,
+    async: false,
     data: {
       Name: $("#productName").val(),
       Code: $("#productCode").val(),

@@ -7,6 +7,8 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         IEnumerable<Category> GetAll();
         Category GetById(int categoryId);
         void Insert(Category category);
+
+        Task InsertAsync(Category category);
         void Update(Category category);
         void Delete(int categoryId);
     }

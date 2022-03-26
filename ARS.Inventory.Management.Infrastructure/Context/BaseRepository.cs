@@ -17,28 +17,41 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
             this.dbSet = _unitOfWork.Db.Set<T>();
         }
 
-        public T GetById(Expression<Func<T, bool>> filter)
+        public virtual T GetById(Expression<Func<T, bool>> filter)
         {
             var dbResult = dbSet.Where(filter).SingleOrDefault();
             return dbResult;
         }
 
-        public IEnumerable<T> GetAll()
+        public async virtual Task<T> GetByIdAsync(Expression<Func<T, bool>> filter)
+        {
+            var dbResult = await dbSet.FirstAsync(filter);
+            return dbResult;
+        }
+
+        public virtual IEnumerable<T> GetAll()
         {
             return dbSet.AsEnumerable();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
+        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).AsEnumerable();
         }
 
-        public virtual T Insert(T entity)
+        public virtual void Insert(T entity)
         {
 
-            dynamic obj = dbSet.Add(entity);
+            dbSet.Add(entity);
             this._unitOfWork.Db.SaveChanges();
-            return obj;
+
+        }
+
+        public virtual async Task InsertAsync(T entity)
+        {
+
+            await dbSet.AddAsync(entity);
+            this._unitOfWork.Db.SaveChanges();
 
         }
 
@@ -59,7 +72,7 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
             this._unitOfWork.Db.SaveChanges();
         }
 
-        public void Delete(Expression<Func<T, bool>> filter)
+        public virtual void Delete(Expression<Func<T, bool>> filter)
         {
             IEnumerable<T> entities = this.GetAll(filter);
             foreach (T entity in entities)
@@ -74,12 +87,12 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
         }
 
         // ------- Extra Methods ------ ///
-        public bool Exist(Expression<Func<T, bool>> filter)
+        public virtual bool Exist(Expression<Func<T, bool>> filter)
         {
             return dbSet.Any(filter);
         }
-        
-        public int Count(Expression<Func<T, bool>> filter)
+
+        public virtual int Count(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).Count();
         }
