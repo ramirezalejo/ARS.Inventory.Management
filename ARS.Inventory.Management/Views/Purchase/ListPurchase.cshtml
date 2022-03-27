@@ -62,16 +62,6 @@
 </div>
 
 <script>
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signin up !", { timeOut: 3000 });
-            window.location.href = "/UserManagement/Login";
-        }
-    });
 
     var Delete = function (id) {
 
@@ -83,9 +73,9 @@
                 toastr.success("Purchase was deleted successfully", { timeOut: 1000 })
                 window.location.href = "/Purchase/ListPurchase";
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     };
 
@@ -99,9 +89,9 @@
                 toastr.success("Purchase was confirmed successfully", { timeOut: 1500 })
                 window.location.href = "/Purchase/ListPurchase";
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     };
 

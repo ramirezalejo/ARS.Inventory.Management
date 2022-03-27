@@ -254,30 +254,23 @@
     <script>
         $(document).ready(function () {
 
-            var token = sessionStorage.getItem("accessToken");
-            if (token == null) {
-                window.location.href = "/UserManagement/Login"
-            }
-            else {
                 $("#logout").click(function () {
 
-                    var headers = {};
-                    if (token) {
-                        headers.Authorization = 'Bearer ' + token;
-                    }
+                     $.ajax({
+                url: "/api/Account/Logout",
+                method: "POST",
+                async: false,
+                },
+                success: function () {
+                    toastr.success("Session finished !", { timeOut: 2000 });
+                     window.location.href = '/UserManagement/Login';
+                },
+                error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
+            });
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/Account/Logout',
-                        headers: headers
-                    }).done(function (data) {
-                        sessionStorage.removeItem('accessToken');
-                        toastr.info("Thank you, goodbye !", { timeOut: 3000 })
-                        window.location.href = '/UserManagement/Login';
-                    }).fail(function () {
-                        alert("Error !");
-                    });
-                });
+);
             }
         });
 

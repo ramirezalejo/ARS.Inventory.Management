@@ -202,9 +202,9 @@
       toastr.success( "Product added successfully !", { timeOut: 2000 });
       window.location.href = "/Product/ListProduct";
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 });
 
@@ -227,30 +227,10 @@ var Update = function(productId) {
     toastr.success( "Product updated successfully !", { timeOut: 2000 });
       window.location.href = "/Product/ListProduct";
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 
 </script>
-
-
-
-
-@*<div class="form-group">
-
-        <label class="col-sm-3 control-label yazi"><br><br><br><b>Product Picture : </b></label>
-        <div class="col-sm-4">
-            <br>
-            <br>
-            <br>
-            <input type="file" name="pic" accept="image/*" placeholder="Ürün Resmi Ekleyiniz..." class="form-control parsley-error">
-        </div>
-
-        <div class="col-sm-3">
-            &nbsp      &nbsp      &nbsp &nbsp
-
-            <img style="margin-top: -12px" width="140" height="115" src="http://news.yuvayana.org/wp-content/uploads/sites/10/2015/06/muther-dairy-milk.jpg">
-        </div>
-    </div>*@

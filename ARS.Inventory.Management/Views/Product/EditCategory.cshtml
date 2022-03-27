@@ -30,22 +30,11 @@
 </div>
 
 <script>
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signing up!");
-            window.location.href.replace("/UserManagement/Login")
-        }
-    });
-
-        var Update = function (categoryId) {
+          var Update = function (categoryId) {
             $.ajax({
                 url: "/api/Categories",
                 method: "PUT",
-                headers: headers,
+                async: false,
                 data: {
                     Id: categoryId,
                     Name: $("#categoryName").val()
@@ -54,9 +43,9 @@
                     toastr.success("Category was updated successfully !", { timeOut: 2000 });
                     window.location.replace("/Product/CategoryList");
                 },
-                error: function (jqXHR) {
-                    alert("Error !");
-                }
+                error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
             });
         };
 

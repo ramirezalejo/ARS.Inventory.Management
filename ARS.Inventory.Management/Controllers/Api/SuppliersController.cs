@@ -57,6 +57,10 @@ namespace ARS.Inventory.Management.Controllers.Api
         {
             try
             {
+                bool test = false;
+                if (test)
+                    throw new Exception("Test error");
+
                 Supplier supplier = new Supplier
                 {
                     Id = model.Id,

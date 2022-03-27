@@ -30,22 +30,13 @@
 </div>
 
 <script>
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signing up!");
-            window.location.href = "/UserManagement/Login";
-        }
-    });
 
         var Update = function (roleId) {
+
             $.ajax({
                 url: "/api/Roles",
                 method: "PUT",
-                headers: headers,
+                async: false,
                 data: {
                     Id: roleId,
                     RoleName: $("#roleName").val()
@@ -54,9 +45,9 @@
                     toastr.success("Role was updated successfully !", { timeOut: 2000 });
                     window.location.replace("/Role/RoleList");
                 },
-                error: function (jqXHR) {
-                    alert("Error !");
-                }
+                error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
             });
         };
 

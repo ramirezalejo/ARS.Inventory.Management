@@ -47,7 +47,7 @@
                                                     <a href="@Url.Action("EditRole","Role", new { id=item.Id})" class="icon"><i class="mdi mdi-edit" style="float: right"></i></a>
                                                 </td>
                                                 <td class="actions">
-                                                    <a href="#" class="icon" ><i class="mdi mdi-delete" onclick="Delete('@item.Id')"></i></a>
+                                                    <a href="#" class="icon"><i class="mdi mdi-delete" onclick="Delete('@item.Id')"></i></a>
                                                 </td>
                                             </tr>
                                         }
@@ -68,28 +68,19 @@
 
 
 <script type="text/javascript">
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
 
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signing up!");
-            window.location.replace("/UserManagement/Login");
-        }
-    });
 
     var Delete = function (id) {
         $.ajax({
             url: "/api/Roles/" + id,
             method: "DELETE",
-            headers: headers,
+            async: false,
             success: function () {
                 window.location.replace("/Role/RoleList");
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     };
 
@@ -97,7 +88,7 @@
         $.ajax({
             url: "/api/Roles",
             method: "POST",
-            headers: headers,
+            async: false,
             data: {
                 RoleName: $("#roleName").val()
             },
@@ -106,9 +97,9 @@
 
                 //window.location.href = "/Role/RoleList";
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     });
 

@@ -117,8 +117,6 @@
         },
         error: function (error) {
            toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
-            $('#divErrorText').text(error.responseText);
-            $('#divError').show('fade');
         }
       });
     });
@@ -139,9 +137,8 @@
           toastr.success("Supplier updated successfully !", { timeOut: 2000 });
           window.location.href = "/Supplier/ListSupplier";
         },
-        error: function() {
-          alert("Error !");
-          window.location.href = "/Supplier/ListSupplier";
+        error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
         }
       });
     });

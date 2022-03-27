@@ -64,14 +64,15 @@
         $.ajax({
             url: "/api/Products/" + id,
             method: "DELETE",
+            async: false,
             success: function () {
                 toastr.success("Product deleted successfully", { timeOut: 1000 })
                 window.location.replace("/Product/ListProduct");
 
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     };
 

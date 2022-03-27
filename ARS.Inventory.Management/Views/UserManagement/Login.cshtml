@@ -74,9 +74,7 @@
 
         },
         error: function (error) {
-           toastr.error("Encountered an error !", { timeOut: 3000 })
-            $('#divErrorText').text(error.responseText);
-            $('#divError').show('fade');
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
         }
     });
 });

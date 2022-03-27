@@ -58,13 +58,6 @@ var token = sessionStorage.getItem("accessToken");
 var headers = {};
 headers.Authorization = 'Bearer ' + token;
 
-$(document).ready(function () {
-
-  if (token == null) {
-         toastr.info( "Please try again after signin up !", { timeOut: 3000 });
-         window.location.href = "/UserManagement/Login"
-       }
-});
 var Delete = function(id)
 {
  $.ajax({
@@ -75,9 +68,9 @@ var Delete = function(id)
                      toastr.success("Supplier deleted successfully", { timeOut: 1000 })
                      window.location.href = "/Supplier/ListSupplier"
             },
-            error: function (jqXHR) {
-               alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
      }
 </script>

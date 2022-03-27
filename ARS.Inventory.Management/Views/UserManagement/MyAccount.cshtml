@@ -51,26 +51,17 @@
 <script>
 
     $("#cancel").click(function(){
-    window.location.href = "http://localhost:5000/Home/Index";
+    window.location.href = "/Home/Index";
     return false;
     });
 
-   var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
 
-    $(document).ready(function() {
-      if (token == null) {
-            toastr.info( "Please try again after signin up !", { timeOut: 3000 });
-            window.location.href = "/UserManagement/Login";
-      }
-    });
 
 var Change = function() {
   $.ajax({
     url: "/api/Account/ChangePassword",
     method: "POST",
-    headers: headers,
+    async: false,
     data: {
       OldPassword: $("#oldPassword").val(),
       NewPassword: $("#newPassword").val(),
@@ -81,9 +72,9 @@ var Change = function() {
       toastr.success( "Password changed successfully !", { timeOut: 3000 });
       window.location.href = "/Home/Index";
     },
-    error: function(jqXHR) {
-      alert("Error cannot changed !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 </script>

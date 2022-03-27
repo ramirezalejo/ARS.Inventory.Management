@@ -50,29 +50,19 @@
 
 <script>
 
-var token = sessionStorage.getItem("accessToken");
-var headers = {};
-headers.Authorization = 'Bearer ' + token;
-
-$(document).ready(function () {
-if (token == null) {
-         toastr.info("Please try again after signin up !", { timeOut: 3000 });
-         window.location.href = "/UserManagement/Login"
-       }
-});
 
 var ConfirmOrder = function(id) {
      $.ajax({
                 url: '/api/Orders/ConfirmOrder?id='+id,
                 method: 'POST',
-                headers: headers,
+                async: false,
                 success: function () {
                          toastr.success("Selected Ordes confirmed successfully !", { timeOut: 4000 })
                          window.location.href = "/Order/ConfirmedListOrder"
                 },
-                error: function (jqXHR) {
-                   alert("Error !");
-                }
+                error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
             });
      }
 </script>

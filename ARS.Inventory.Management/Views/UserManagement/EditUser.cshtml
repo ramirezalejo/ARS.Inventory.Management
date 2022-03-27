@@ -128,22 +128,12 @@
 </div>
 
 <script>
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signing up!");
-            window.location.href = "/UserManagement/Login";
-        }
-    });
 
     var Update = function(userId) {
   $.ajax({
     url: "/api/Account/EditUser",
     method: "PUT",
-    headers: headers,
+    async: false,
     data: {
       Id: userId,
       FirstName: $("#firstName").val(),
@@ -156,9 +146,9 @@
     toastr.success( "User updated successfully !", { timeOut: 2000 });
       window.location.replace("/UserManagement/UserList");
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+   error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 
@@ -167,7 +157,7 @@
   $.ajax({
     url: "/api/Account/Register",
     method: "POST",
-    headers: headers,
+    async: false,
     data: {
         Email: $("#email").val(),
         Password: $("#password").val(),
@@ -182,9 +172,9 @@
       toastr.success( "User added successfully !", { timeOut: 2000 });
       window.location.replace("/UserManagement/UserList");
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 });
 </script>

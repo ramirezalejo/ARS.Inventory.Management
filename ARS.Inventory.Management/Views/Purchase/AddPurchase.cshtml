@@ -126,9 +126,9 @@
                 toastr.success("Purchase has been completed successfully !", { timeOut: 3000 });
                 window.location.href = "/Purchase/ListPurchase";
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
     });
 
@@ -150,9 +150,9 @@
                 toastr.success("Purchase has been updated successfully !", { timeOut: 3000 });
                 window.location.href = "/Purchase/ListPurchase";
             },
-            error: function (jqXHR) {
-                alert("Error !");
-            }
+            error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
         });
 
     };

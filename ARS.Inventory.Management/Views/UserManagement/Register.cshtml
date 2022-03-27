@@ -76,9 +76,9 @@
         $(document).ready(function () {
             $("#btnRegister").click(function () {
                 $.ajax({
-                    // Post username, password & the grant type to /token
                     url: "/api/Account/Register",
                     method: "POST",
+                    async: false,
                     data: {
                         Email: $("#email").val(),
                         Password: $("#password").val(),
@@ -94,9 +94,8 @@
                         window.location.href = "/UserManagement/Login";
                     },
                     error: function (error) {
-                        toastr.error("Encountered with a error !", { timeOut: 3000 })
-                        alert("Error Registering user!");
-                    }
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
                 });
             });
         });

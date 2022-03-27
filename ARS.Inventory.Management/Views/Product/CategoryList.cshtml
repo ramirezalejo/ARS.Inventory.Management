@@ -75,9 +75,9 @@ var Delete = function(id) {
         window.location.replace("/Product/CategoryList");
 
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 
@@ -94,10 +94,9 @@ $("#btnSave").click(function() {
 
 
     },
-    error: function(error) {
-      $('#divErrorText').text(error.responseText);
-      $('#divError').show('fade');
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 });
 
