@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ARS.Inventory.Management.Controllers.Api
 {
     [Authorize]
+    [Route("/api/Purchases")]
     public class PurchasesController : ControllerBase
     {
         private IPurchaseService _purchase;
@@ -97,14 +98,16 @@ namespace ARS.Inventory.Management.Controllers.Api
             return Ok("Deleted Successfully !");
         }
 
-        [Route("api/Purchases/ConfirmPurchases")]
+        [HttpPost]
+        [Route("ConfirmPurchases")]
         public IActionResult ConfirmPurchases(int id)
         {
             _purchase.ConfirmPurchase(id);
             return Ok("Confirmed Successfully");
         }
 
-        [Route("api/Purchases/UnconfirmPurchases")]
+        [HttpPost]
+        [Route("UnconfirmPurchases")]
         public IActionResult UnconfirmPurchases(int id)
         {
             _purchase.UnconfirmPurchase(id);

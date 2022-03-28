@@ -46,7 +46,8 @@
                                     </div>
                                 </li>
                                 <li><a href="@Url.Action("MyAccount","UserManagement")"><span class="icon mdi mdi-card"></span>My Account</a></li>
-                                <li><a href="#" id="logout"><span class="icon mdi mdi-power"></span>Log Out</a></li>
+                                <li><a onclick="Logout()"><span class="icon mdi mdi-power"></span>Log Out</a></li>
+                                <a onclick="Logout()" <span class="icon mdi mdi-power"></span>Log Out</a>
                             </ul>
                         </li>
                     </ul>
@@ -252,27 +253,22 @@
     </script>
 
     <script>
-        $(document).ready(function () {
 
-                $("#logout").click(function () {
-
-                     $.ajax({
-                url: "/api/Account/Logout",
-                method: "POST",
-                async: false,
-                },
-                success: function () {
-                    toastr.success("Session finished !", { timeOut: 2000 });
-                     window.location.href = '/UserManagement/Login';
-                },
-                error: function (error) {
-           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
-        }
+        var Logout = function () {
+            $.ajax({
+            url: "/api/Account/Logout",
+            method: "POST",
+            async: false,
+            },
+            success: function () {
+                toastr.success("Session finished !", { timeOut: 2000 });
+                    window.location.href = '/UserManagement/Login';
+            },
+            error: function (error) {
+               toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
             });
+        };
 
-);
-            }
-        });
 
     </script>
 </body>

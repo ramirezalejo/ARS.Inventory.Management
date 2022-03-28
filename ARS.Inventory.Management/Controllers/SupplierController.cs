@@ -22,7 +22,7 @@ namespace ARS.Inventory.Management.Controllers
                     Id  = s.Id,
                     Name = s.Name,
                     PhoneNumber = s.PhoneNumber,
-                    Adress = s.Adress,
+                    Adress = s.Address,
                     Email = s.Email
                 }); 
 
@@ -45,7 +45,7 @@ namespace ARS.Inventory.Management.Controllers
                     {
                         Id = supplier.Id,
                         Name = supplier.Name,
-                        Adress = supplier.Adress, 
+                        Adress = supplier.Address, 
                         PhoneNumber = supplier.PhoneNumber, 
                         Email = supplier.Email
                     };

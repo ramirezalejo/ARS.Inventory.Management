@@ -26,7 +26,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             {
                 Id = c.Id,
                 Name = c.Name,
-                Adress = c.Adress,
+                Adress = c.Address,
                 PhoneNumber = c.PhoneNumber
 
             });
@@ -44,7 +44,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 {
                     Id = result.Id,
                     Name = result.Name,
-                    Adress = result.Adress,
+                    Adress = result.Address,
                     PhoneNumber = result.PhoneNumber
                 };
                 return Ok(vm);
@@ -65,7 +65,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 {
                     Id = model.Id,
                     Name = model.Name,
-                    Adress = model.Adress,
+                    Address = model.Adress,
                     PhoneNumber = model.PhoneNumber,
                     Email = model.Email
                 };
@@ -87,7 +87,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             {
                 Id = model.Id,
                 Name = model.Name,
-                Adress = model.Adress,
+                Address = model.Adress,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email
             };

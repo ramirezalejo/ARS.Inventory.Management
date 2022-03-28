@@ -214,7 +214,7 @@ namespace ARS.Inventory.Management.Data.Migrations
                     Id = c.Column<int>(nullable: false)
                     .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = c.Column<string>(),
-                    Adress = c.Column<string>(),
+                    Address = c.Column<string>(),
                     PhoneNumber = c.Column<string>(),
                     Email = c.Column<string>(),
                 },

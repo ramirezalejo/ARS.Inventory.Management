@@ -7,7 +7,6 @@
         public string PhoneNumber { get; set; }
         public DateTime RegisteredDate { get; set; }
         public string RoleName { get; set; }
-        public string RoleId { get; set; }
         public string UserName { get; set; }
 
     }

@@ -20,7 +20,7 @@ namespace ARS.Inventory.Management.Domain.Models
         public bool Confirmation { get; set; }
         [Column(TypeName = "DateTime2")]
         public DateTime ConfirmationTime { get; set; }
-
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }

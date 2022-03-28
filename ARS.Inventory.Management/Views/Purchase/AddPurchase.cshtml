@@ -99,23 +99,12 @@
 
 <script type="text/javascript">
 
-    var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
-
-    $(document).ready(function () {
-        if (token == null) {
-            toastr.info("Please try again after signin up !", { timeOut: 3000 });
-            window.location.href = "/UserManagement/Login";
-        }
-    });
-
     $("#btnSave").click(function () {
 
         $.ajax({
             url: "/api/Purchases",
             method: "POST",
-            headers: headers,
+            async: false,
             data: {
                 ProductId: $("#ProductId").val(),
                 Quantity: $("#quantity").val(),
@@ -138,7 +127,7 @@
         $.ajax({
             url: "/api/Purchases",
             method: "PUT",
-            headers: headers,
+            async: false,
             data: {
                 Id: purchaseId,
                 ProductId: $("#ProductId").val(),

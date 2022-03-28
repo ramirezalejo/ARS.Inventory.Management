@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ARS.Inventory.Management.Controllers
 {
@@ -14,13 +15,16 @@ namespace ARS.Inventory.Management.Controllers
     {
         InventoryDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DbContextOptions _dbContextOptions;
 
         public UserManagementController(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             DbContextOptions<InventoryDbContext> dbContextOptions)
         {
             _dbContext = new InventoryDbContext(dbContextOptions);
             _userManager = userManager;
+            _roleManager = roleManager;
             _dbContextOptions = dbContextOptions;
         }
 
@@ -63,17 +67,21 @@ namespace ARS.Inventory.Management.Controllers
 
         public async Task<IActionResult> EditUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            var roles = await _userManager.GetRolesAsync(user);
-            ViewBag.Roles = new SelectList(roles, "Name", "Name");
+            if (!string.IsNullOrEmpty(id))
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                var userRoles = await _userManager.GetRolesAsync(user);
+                ViewBag.Roles = new SelectList(userRoles, "Name", "Name");
+                return View("EditUser");
+            }
 
-            //List<SelectListItem> items = new List<SelectListItem>();
-            //foreach(var item in roles)
-            //{
-            //    items.Add(new SelectListItem { Text = item.Name, Value = item.Name });
-            //}
-
-
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(currentUserId);
+            var currentUserRoles = await _userManager.GetRolesAsync(currentUser);
+            var roles = _roleManager.Roles.ToList();
+            int userRoleId = int.Parse(roles.FirstOrDefault(x => x.Name == currentUserRoles[0])?.Id ?? "999");
+            ViewBag.Roles = new SelectList(roles.Where(x => int.Parse(x.Id) >= userRoleId), "Name", "Name");
+            
             return View("EditUser");
         }
 
@@ -85,19 +93,23 @@ namespace ARS.Inventory.Management.Controllers
                 var user = await _userManager.FindByIdAsync(id);
                 if (user != null)
                 {
-                    var roleName = _userManager.GetRolesAsync(user);
+                    var userRoles = await _userManager.GetRolesAsync(user);
                     var vm = new UserManagementViewModel
                     {
                         Id = user.Id,
                         UserName = user.UserName,
                         PhoneNumber = user.PhoneNumber,
                         Email = user.Email,
-                        RoleName = (await roleName)[0]
+                        RoleName = userRoles[0],
+                        RegisteredDate = user.RegisteredDate,
                     };
 
-                    var roles = await _userManager.GetRolesAsync(user);
-                    //ViewData["Roles"] = new SelectList(roles, null, "Name");
-                    ViewBag.Roles = new SelectList(roles, "Name", "Name");
+                    var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var currentUser = await _userManager.FindByIdAsync(currentUserId);
+                    var currentUserRoles = await _userManager.GetRolesAsync(currentUser);
+                    var roles = _roleManager.Roles.ToList();
+                    int userRoleId = int.Parse(roles.FirstOrDefault(x => x.Name == currentUserRoles[0])?.Id ?? "999");
+                    ViewBag.Roles = new SelectList(roles.Where(x => int.Parse(x.Id) >= userRoleId), "Name", "Name");
 
                     return View("EditUser",vm);
                 }

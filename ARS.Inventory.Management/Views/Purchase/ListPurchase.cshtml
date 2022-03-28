@@ -68,7 +68,7 @@
         $.ajax({
             url: "/api/Purchases/" + id,
             method: "DELETE",
-            headers: headers,
+            async: false,
             success: function () {
                 toastr.success("Purchase was deleted successfully", { timeOut: 1000 })
                 window.location.href = "/Purchase/ListPurchase";
@@ -84,7 +84,7 @@
         $.ajax({
             url: '/api/Purchases/ConfirmPurchases?id='+id,
             method: "POST",
-            headers: headers,
+            async: false,
             success: function () {
                 toastr.success("Purchase was confirmed successfully", { timeOut: 1500 })
                 window.location.href = "/Purchase/ListPurchase";

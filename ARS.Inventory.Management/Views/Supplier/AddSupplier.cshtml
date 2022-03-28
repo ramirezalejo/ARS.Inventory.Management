@@ -126,6 +126,7 @@
       $.ajax({
         url: "/api/Suppliers",
         method: "PUT",
+        async: false,
         data: {
           Id: $("#supplierId").val(),
           Name: $("#supplierName").val(),

@@ -14,12 +14,17 @@ namespace ARS.Inventory.Management.Controllers
         private const string LocalLoginProvider = "Local";
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger logger)
+        public AccountController(UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
         }
 
@@ -157,6 +162,14 @@ namespace ARS.Inventory.Management.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterBindingModel model)
         {
+            if (string.IsNullOrEmpty(model.RoleName))
+                model.RoleName = "Guest";
+            else
+            {
+                var roles = _roleManager.Roles.ToList();
+                model.RoleName = roles.FirstOrDefault(x => x.Name == model.RoleName)?.NormalizedName;
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -224,6 +237,14 @@ namespace ARS.Inventory.Management.Controllers
         [HttpPut]
         public async Task<IActionResult> AddUserRole(UserManagementViewModel model)
         {
+            if (string.IsNullOrEmpty(model.RoleName))
+                model.RoleName = "Guest";
+            else
+            {
+                var roles = _roleManager.Roles.ToList();
+                model.RoleName = roles.FirstOrDefault(x => x.Name == model.RoleName)?.NormalizedName;
+            }
+
             var user = await _userManager.FindByIdAsync(model.Id);
 
             if (user != null && model != null)
@@ -233,15 +254,17 @@ namespace ARS.Inventory.Management.Controllers
                 user.Email = model.Email;
 
                 await _userManager.UpdateAsync(user);
-                var roleResult = await _userManager.GetRolesAsync(user);
+                var userRole = await _userManager.GetRolesAsync(user);
+                var roles = _roleManager.Roles.ToList();
+                var roleName = roles.FirstOrDefault(x => x.Name == userRole[0])?.NormalizedName;
 
-                if (roleResult[0] == model.RoleName)
+                if (roleName == model.RoleName)
                 {
                     return Ok();
                 }
                 else
                 {
-                    await _userManager.RemoveFromRoleAsync(user, roleResult[0]);
+                    await _userManager.RemoveFromRoleAsync(user, roleName);
                     await _userManager.AddToRoleAsync(user, model.RoleName);
                     return Ok();
                 }

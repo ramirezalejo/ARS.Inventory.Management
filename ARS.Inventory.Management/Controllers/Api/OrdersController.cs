@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Models;
@@ -96,10 +97,11 @@ namespace ARS.Inventory.Management.Controllers.Api
         [HttpPost]
         public IActionResult Insert(OrderViewModel model)
         {
+            var user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Order order = new Order
             {
                 ProductId = model.ProductId,
-                UserId = User.Identity.Name,
+                UserId = user,
                 ShippingAddress = model.ShippingAddress
             };
             _order.Insert(order);
