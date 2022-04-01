@@ -1,4 +1,7 @@
-﻿@model ARS.Inventory.Management.Models.HomeViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@model ARS.Inventory.Management.Models.HomeViewModel
+@inject IViewLocalizer Localizer
 
 @if (User.IsInRole("Admin"))
 {
@@ -8,7 +11,7 @@
             <div class="widget widget-tile">
                 <div id="spark1" class="chart sparkline"></div>
                 <div class="data-info">
-                    <div class="desc">Total Product Value ₺</div>
+                    <div class="desc">@Localizer["TotalInventoryValue"]</div>
                     <div class="value">
                         <span data-toggle="counter" data-end="@Model.TotalProductValues" class="number">500</span>
                     </div>

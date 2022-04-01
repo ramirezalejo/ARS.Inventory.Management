@@ -8,6 +8,7 @@ using ARS.Inventory.Management.Infrastructure.Repository.Context;
 using ARS.Inventory.Management.Infrastructure.Repository.Infrastucture;
 using ARS.Inventory.Management.Web.Mappers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,8 +39,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAutoMapper(
         typeof(AutoMapperProfile));
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews();
-builder.Services.AddMvc();
+builder.Services.AddMvc().AddDataAnnotationsLocalization().AddViewLocalization();
 builder.Services.AddWebOptimizer(pipeline =>
 {
     pipeline.MinifyJsFiles("~/Scripts/*.js", "~/Scripts/**/*.js");

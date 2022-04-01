@@ -3,6 +3,7 @@ using ARS.Inventory.Management.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
 
 namespace ARS.Inventory.Management.Controllers
@@ -163,7 +164,12 @@ namespace ARS.Inventory.Management.Controllers
         public async Task<IActionResult> Register(RegisterBindingModel model)
         {
             if (string.IsNullOrEmpty(model.RoleName))
+            {
                 model.RoleName = "Guest";
+                ModelState.Remove("RoleName");
+            }
+                
+                //model.RoleName = "Guest";
             else
             {
                 var roles = _roleManager.Roles.ToList();
