@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,10 +13,6 @@
     <title>Inventory Management System</title>
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/material-design-icons/css/material-design-iconic-font.min.css" />
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/jquery.vectormap/jquery-jvectormap-1.2.2.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/jqvmap/jqvmap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
@@ -45,19 +44,18 @@
                                         <div class="user-position online">Online</div>
                                     </div>
                                 </li>
-                                <li><a href="@Url.Action("MyAccount","UserManagement")"><span class="icon mdi mdi-card"></span>My Account</a></li>
-                                <li><a onclick="Logout()"><span class="icon mdi mdi-power"></span>Log Out</a></li>
-                                <a onclick="Logout()" <span class="icon mdi mdi-power"></span>Log Out</a>
+                                <li><a href="@Url.Action("MyAccount","UserManagement")"><span class="icon mdi mdi-card"></span>@Localizer["My Account"]</a></li>
+                                <li><a onclick="Logout()"><span class="icon mdi mdi-power"></span>@Localizer["Log Out"]</a></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="page-title" style="font-size: 23px">
-                        <span> <b>Inventory Management System</b></span>
+                        <span> <b>@Localizer["Inventory Management System"]</b></span>
                         &nbsp;
-                        @Html.ActionLink("  API", "Index", "Help", new { area = "" }, null)
+                        @*@Html.ActionLink("  API", "Index", "Help", new { area = "" }, null)*@
                     </div>
 
-                    <ul class="nav navbar-nav navbar-right be-icons-nav">
+                    @*<ul class="nav navbar-nav navbar-right be-icons-nav">
                         </li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon mdi mdi-apps"></span></a>
@@ -76,7 +74,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right be-user-nav"></ul>
+                    <ul class="nav navbar-nav navbar-right be-user-nav"></ul>*@
 
                 </div>
             </div>
@@ -90,7 +88,7 @@
                             <ul class="sidebar-elements">
                                 <li class="divider">Menu</li>
                                 <li class="active">
-                                    <a href="@Url.Action("Index","Home")"><i class="icon mdi mdi-home"></i><span>Main Page</span></a>
+                                    <a href="@Url.Action("Index","Home")"><i class="icon mdi mdi-home"></i><span>@Localizer["Main Page"]</span></a>
                                 </li>
                                 @*<li class="parent">
             <a href="#"><i class="icon mdi mdi-account"></i><span>Employee Management</span></a>
@@ -107,72 +105,72 @@
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-card"></i><span>Product Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-card"></i><span>@Localizer["Product Management"]</span></a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="@Url.Action("AddProduct","Product")" style="font-size: 14px">New Product</a>
+                                                <a href="@Url.Action("AddProduct","Product")" style="font-size: 14px">@Localizer["New Product"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ListProduct","Product")" style="font-size: 14px">Product Management</a>
+                                                <a href="@Url.Action("ListProduct","Product")" style="font-size: 14px">@Localizer["Update Products"]</a>
                                             </li>
                                                 <li>
-                                                    <a href="@Url.Action("CategoryList","Product")" style="font-size: 14px">Category Management</a>
+                                                    <a href="@Url.Action("CategoryList","Product")" style="font-size: 14px">@Localizer["Category Management"]</a>
                                                 </li>
                                         </ul    >
                                     </li>
 
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-assignment-o"></i><span>Supplier Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-assignment-o"></i><span>@Localizer["Supplier Management"]</span></a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="@Url.Action("AddSupplier","Supplier")" style="font-size: 14px">New Supplier</a>
+                                                <a href="@Url.Action("AddSupplier","Supplier")" style="font-size: 14px">@Localizer["New Supplier"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ListSupplier","Supplier")" style="font-size: 14px">Supplier Management</a>
+                                                <a href="@Url.Action("ListSupplier","Supplier")" style="font-size: 14px">@Localizer["Update Supplier"]</a>
                                             </li>
 
                                         </ul>
                                     </li>
 
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-shopping-cart"></i><span>Order Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-shopping-cart"></i><span>@Localizer["Order Management"]</span></a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="@Url.Action("ListOrder","Order")" style="font-size: 14px">Order Management</a>
+                                                <a href="@Url.Action("ListOrder","Order")" style="font-size: 14px">@Localizer["Orders"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ConfirmedListOrder","Order")" style="font-size: 14px">Confirmed Orders</a>
+                                                <a href="@Url.Action("ConfirmedListOrder","Order")" style="font-size: 14px">@Localizer["Confirmed Orders"]</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-shopping-basket"></i><span>Purchase Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-shopping-basket"></i><span>@Localizer["Purchase Management"]</span></a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="@Url.Action("AddPurchase","Purchase")" style="font-size: 14px">New Purchase</a>
+                                                <a href="@Url.Action("AddPurchase","Purchase")" style="font-size: 14px">@Localizer["New Purchase"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ListPurchase","Purchase")" style="font-size: 14px">Purchase Management</a>
+                                                <a href="@Url.Action("ListPurchase","Purchase")" style="font-size: 14px">@Localizer["Update Purchase"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ConfirmedPurchase","Purchase")" style="font-size: 14px">Confirmed Purchase</a>
+                                                <a href="@Url.Action("ConfirmedPurchase","Purchase")" style="font-size: 14px">@Localizer["Confirmed Purchase"]</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-account-add"></i><span>User Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-account-add"></i><span>@Localizer["User Management"]</span></a>
                                         <ul class="sub-menu">
                                             @*<li>
                     <a href="@Url.Action("AddCustomer","Customer")" style="font-size: 14px">New Customer</a>
                      </li>*@
+                                            @*<li>
+                                                <a href="@Url.Action("RoleList","Role")" style="font-size: 14px">@Localizer["Role Management"]</a>
+                                            </li>*@
                                             <li>
-                                                <a href="@Url.Action("RoleList","Role")" style="font-size: 14px">Role Management</a>
+                                                <a href="@Url.Action("UserList","UserManagement")" style="font-size: 14px">@Localizer["User Management"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("UserList","UserManagement")" style="font-size: 14px">User Management</a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("ListCustomer","Customer")" style="font-size: 14px">Customer Management</a>
+                                                <a href="@Url.Action("ListCustomer","Customer")" style="font-size: 14px">@Localizer["Customer Management"]</a>
                                             </li>
 
                                         </ul>
@@ -181,34 +179,31 @@
                                 else if (User.IsInRole("WarehouseManager"))
                                 {
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-card"></i><span>Product Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-card"></i><span>@Localizer["Product Management"]</span></a>
                                         <ul class="sub-menu">
-                                            <li>
-                                                <a href="@Url.Action("AddProduct","Product")" style="font-size: 14px">New Product</a>
+                                             <li>
+                                                <a href="@Url.Action("AddProduct","Product")" style="font-size: 14px">@Localizer["New Product"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ListProduct","Product")" style="font-size: 14px">Product Management</a>
+                                                <a href="@Url.Action("ListProduct","Product")" style="font-size: 14px">@Localizer["Update Products"]</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="parent">
-                                        <a href="#"><i class="icon mdi mdi-shopping-basket"></i><span>Purchase Management</span></a>
+                                        <a href="#"><i class="icon mdi mdi-shopping-basket"></i><span>@Localizer["Purchase Management"]</span></a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="@Url.Action("AddPurchase","Purchase")" style="font-size: 14px">New Purchase</a>
+                                                <a href="@Url.Action("AddPurchase","Purchase")" style="font-size: 14px">@Localizer["New Purchase"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ListPurchase","Purchase")" style="font-size: 14px">Purchase Management</a>
+                                                <a href="@Url.Action("ListPurchase","Purchase")" style="font-size: 14px">@Localizer["Update Purchase"]</a>
                                             </li>
                                             <li>
-                                                <a href="@Url.Action("ConfirmedPurchase","Purchase")" style="font-size: 14px">Confirmed Purchase</a>
+                                                <a href="@Url.Action("ConfirmedPurchase","Purchase")" style="font-size: 14px">@Localizer["Confirmed Purchase"]</a>
                                             </li>
                                         </ul>
                                     </li>
                                 }
-
-
-
                             </ul>
                         </div>
                     </div>

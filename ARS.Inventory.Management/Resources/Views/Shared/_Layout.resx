@@ -117,61 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Category" xml:space="preserve">
-    <value>Categoria</value>
+  <data name="Category Management" xml:space="preserve">
+    <value>Categorias</value>
   </data>
-  <data name="Created Date" xml:space="preserve">
-    <value>Fecha de Creacion</value>
+  <data name="Confirmed Orders" xml:space="preserve">
+    <value>Pedidos Confirmados</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Fecha</value>
+  <data name="Confirmed Purchase" xml:space="preserve">
+    <value>Ordenes de Compra Confirmadas</value>
   </data>
-  <data name="Last Purchases" xml:space="preserve">
-    <value>Compras mas Recientes</value>
+  <data name="Customer Management" xml:space="preserve">
+    <value>Clientes</value>
   </data>
-  <data name="Last Registered Users" xml:space="preserve">
-    <value>Ultimos Usuarios Registrados</value>
+  <data name="Inventory Management System" xml:space="preserve">
+    <value>Sistema de Gestion de Inventario</value>
   </data>
-  <data name="Latest Sales" xml:space="preserve">
-    <value>Ventas mas Recientes</value>
+  <data name="Log Out" xml:space="preserve">
+    <value>Cerrar Sesion</value>
   </data>
-  <data name="Most Profitable Products" xml:space="preserve">
-    <value>Productos mas Rentables $</value>
+  <data name="Main Page" xml:space="preserve">
+    <value>Inicio</value>
   </data>
-  <data name="Most Sold Categories" xml:space="preserve">
-    <value>Categorias mas Vendidas $</value>
+  <data name="My Account" xml:space="preserve">
+    <value>Mi Cuenta</value>
   </data>
-  <data name="Phone" xml:space="preserve">
-    <value>Telefono</value>
+  <data name="New Product" xml:space="preserve">
+    <value>Crear Producto</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Precio</value>
+  <data name="New Purchase" xml:space="preserve">
+    <value>Crear Orden de Compra</value>
   </data>
-  <data name="Product" xml:space="preserve">
-    <value>Producto</value>
+  <data name="New Supplier" xml:space="preserve">
+    <value>Crear Proveedor</value>
   </data>
-  <data name="Profit" xml:space="preserve">
-    <value>Ganancias $</value>
+  <data name="Order Management" xml:space="preserve">
+    <value>Pedidos</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Cantidad</value>
+  <data name="Orders" xml:space="preserve">
+    <value>Pedidos</value>
   </data>
-  <data name="Registered Date" xml:space="preserve">
-    <value>Fecha de Registro</value>
+  <data name="Product Management" xml:space="preserve">
+    <value>Productos</value>
   </data>
-  <data name="Top Sales" xml:space="preserve">
-    <value>Mas Vendido</value>
+  <data name="Purchase Management" xml:space="preserve">
+    <value>Compras</value>
   </data>
-  <data name="Total Inventory Cost" xml:space="preserve">
-    <value>Costo total del Inventario $</value>
+  <data name="Supplier Management" xml:space="preserve">
+    <value>Proveedores</value>
   </data>
-  <data name="Total Inventory Value" xml:space="preserve">
-    <value>Valor Total del Inventario $</value>
+  <data name="Update Products" xml:space="preserve">
+    <value>Actualizar Productos</value>
   </data>
-  <data name="Total Revenue" xml:space="preserve">
-    <value>Total Ventas $</value>
+  <data name="Update Purchase" xml:space="preserve">
+    <value>Actualizar Orden de Compra</value>
   </data>
-  <data name="User" xml:space="preserve">
-    <value>Usuario</value>
+  <data name="Update Supplier" xml:space="preserve">
+    <value>Actualizar Proveedor</value>
+  </data>
+  <data name="User Management" xml:space="preserve">
+    <value>Usuarios</value>
   </data>
 </root>

@@ -117,61 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Category" xml:space="preserve">
-    <value>Categoria</value>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar</value>
   </data>
-  <data name="Created Date" xml:space="preserve">
-    <value>Fecha de Creacion</value>
+  <data name="Confirmed Status" xml:space="preserve">
+    <value>Confirmado</value>
   </data>
-  <data name="Date" xml:space="preserve">
+  <data name="Go To Confirmed List" xml:space="preserve">
+    <value>Ir a Pedidos Confirmados</value>
+  </data>
+  <data name="Order Date" xml:space="preserve">
     <value>Fecha</value>
   </data>
-  <data name="Last Purchases" xml:space="preserve">
-    <value>Compras mas Recientes</value>
+  <data name="Order Management Screen" xml:space="preserve">
+    <value>Administrar Pedidos</value>
   </data>
-  <data name="Last Registered Users" xml:space="preserve">
-    <value>Ultimos Usuarios Registrados</value>
-  </data>
-  <data name="Latest Sales" xml:space="preserve">
-    <value>Ventas mas Recientes</value>
-  </data>
-  <data name="Most Profitable Products" xml:space="preserve">
-    <value>Productos mas Rentables $</value>
-  </data>
-  <data name="Most Sold Categories" xml:space="preserve">
-    <value>Categorias mas Vendidas $</value>
-  </data>
-  <data name="Phone" xml:space="preserve">
-    <value>Telefono</value>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>Precio</value>
-  </data>
-  <data name="Product" xml:space="preserve">
+  <data name="Product Name" xml:space="preserve">
     <value>Producto</value>
-  </data>
-  <data name="Profit" xml:space="preserve">
-    <value>Ganancias $</value>
-  </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Cantidad</value>
-  </data>
-  <data name="Registered Date" xml:space="preserve">
-    <value>Fecha de Registro</value>
-  </data>
-  <data name="Top Sales" xml:space="preserve">
-    <value>Mas Vendido</value>
-  </data>
-  <data name="Total Inventory Cost" xml:space="preserve">
-    <value>Costo total del Inventario $</value>
-  </data>
-  <data name="Total Inventory Value" xml:space="preserve">
-    <value>Valor Total del Inventario $</value>
-  </data>
-  <data name="Total Revenue" xml:space="preserve">
-    <value>Total Ventas $</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Usuario</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Si</value>
   </data>
 </root>

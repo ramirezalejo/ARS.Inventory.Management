@@ -342,15 +342,19 @@ namespace ARS.Inventory.Management.Data.Migrations
 
             migrationBuilder.InsertData("AspNetRoles",
                 new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                new string[] { "1", "Admin", "Admin", "" });
+                new string[] { "10", "Admin", "Admin", "" });
 
             migrationBuilder.InsertData("AspNetRoles",
                 new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                new string[] { "2", "Vendedor", "Seller", "" });
+                new string[] { "15", "Admin Inventario", "WarehouseManager", "" });
 
             migrationBuilder.InsertData("AspNetRoles",
                 new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
-                new string[] { "3", "Invitado", "Guest", "" });
+                new string[] { "20", "Vendedor", "Seller", "" });
+
+            migrationBuilder.InsertData("AspNetRoles",
+                new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                new string[] { "30", "Invitado", "Guest", "" });
 
         }
 
