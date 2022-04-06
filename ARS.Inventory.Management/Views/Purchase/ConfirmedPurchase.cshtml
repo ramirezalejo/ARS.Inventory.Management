@@ -1,16 +1,18 @@
-﻿@model IEnumerable<ARS.Inventory.Management.Models.PurchaseViewModel>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<ARS.Inventory.Management.Models.PurchaseViewModel>
 
 
 <div class="row">
     <div class="panel panel-default panel-table">
         <div class="panel-heading">
             <center>
-                <h2 class="page-head-title"><b><b>Confirmed Purchases</b></b></h2>
+                <h2 class="page-head-title"><b><b>@Localizer["Confirmed Purchases"]</b></b></h2>
             </center>
             <br /><br />
             <div class="col-sm-4">
                 <div>
-                    <a href="@Url.Action("ListPurchase","Purchase")"><button class="btn btn-primary">Back To List  </button></a>
+                    <a href="@Url.Action("ListPurchase","Purchase")"><button class="btn btn-primary">@Localizer["Back To List"]  </button></a>
                 </div>
 
                 <br />
@@ -20,17 +22,17 @@
                 <table class="table table-striped table-hover" id="productTablee">
                     <thead>
                         <tr style="font-size: 16px; background-color:lavender">
-                            <th width="15%">Product Name </th>
-                            <th width="7%">Purchased Price</th>
-                            <th width="7%">Quantity</th>
-                            <th width="7%">Total Price</th>
-                            <th width="10%">Created Time</th>
-                            <th width="10%">Delivery Time</th>
-                            <th width="11%">Supplier</th>
-                            <th width="10%">Confirmation Time</th>
+                            <th width="15%">@Localizer["Product Name"]</th>
+                            <th width="7%">@Localizer["Purchased Price"]</th>
+                            <th width="7%">@Localizer["Quantity"]</th>
+                            <th width="7%">@Localizer["Total Price"]</th>
+                            <th width="10%">@Localizer["Created Time"]</th>
+                            <th width="10%">@Localizer["Delivery Time"]</th>
+                            <th width="11%">@Localizer["Supplier"]</th>
+                            <th width="10%">@Localizer["Confirmation Time"]</th>
                             <th width="5%"></th>
                         </tr>
-                    </thead>
+                    </thead>    
                     <tbody>
                         @foreach (var item in Model)
                         {
@@ -44,7 +46,7 @@
                                 <td>@item.Product.Supplier.Name</td>
                                 <td>@item.ConfirmationTime.ToString("dd-MM-yyyy HH:mm")</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary" onclick="Unconfirm(@item.Id)"><i class="icon mdi mdi-arrow-left" id="btnUnconfirm"></i><span>&nbsp; Unconfirm</span></a>
+                                    <a href="#" class="btn btn-primary" onclick="Unconfirm(@item.Id)"><i class="icon mdi mdi-arrow-left" id="btnUnconfirm"></i><span>&nbsp; @Localizer["Unconfirm"]</span></a>
                                 </td>
                             </tr>
                         }

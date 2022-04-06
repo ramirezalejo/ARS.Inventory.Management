@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -20,6 +22,7 @@
     <link href="~/Content/toastr.css" rel="stylesheet" />
 </head>
 <body class="be-splash-screen">
+
     <div class="be-wrapper be-login">
         <div class="be-content">
             <div class="main-content container-fluid">
@@ -28,16 +31,16 @@
                         <div class="panel-heading"><img src="~/Content/assets/img/logo.png" alt="logo" width="150" height="70" class="logo-img"></div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <input id="username" type="text" placeholder="Username" autocomplete="on" class="form-control">
+                                <input id="username" type="text" placeholder="@Localizer["Username"]" autocomplete="on" class="form-control">
                             </div>
                             <div class="form-group">
-                                <input id="password" type="password" placeholder="Password" class="form-control">
+                                <input id="password" type="password" placeholder="@Localizer["Password"]" class="form-control">
                             </div>
                             <div class="form-group login-submit">
-                                <button class="btn btn-primary btn-xl" id="btnLogin">Log In</button>
+                                <button class="btn btn-primary btn-xl" id="btnLogin">@Localizer["Log In"]</button>
                             </div>
                             <div class="form-group login-submit">
-                                <button class="btn btn-success btn-xl" style="margin-top: -30px;" id="btnRegister">Register</button>
+                                <button class="btn btn-success btn-xl" style="margin-top: -30px;" id="btnRegister">@Localizer["Register"]</button>
                             </div>
                             <div id="divError" class="alert alert-danger collapse">
                                 <a id="linkClose" href="#" class="close">&times;</a>

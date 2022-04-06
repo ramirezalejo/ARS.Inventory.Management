@@ -1,4 +1,6 @@
-﻿@model ARS.Inventory.Management.Models.UserManagementViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model ARS.Inventory.Management.Models.UserManagementViewModel
 
 <div class="row">
     <div class="col-md-12">
@@ -6,11 +8,11 @@
 
             @if (Model != null)
             {
-                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>Update User</b></div>
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["Update User"]</b></div>
             }
             else
             {
-                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>New User</b></div>
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["New User"]</b></div>
 
             }
                 <div class="panel-body">
@@ -34,20 +36,20 @@
                                 </div>
                             </div>*@
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Phone Number :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Phone Number"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Email :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Email"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="email" name="Email" value="@Model.Email">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi" for="sel1">Role :</label>
+                                <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Role"] :</label>
                                 <div class="col-sm-6">
                                     @*@Html.DropDownListFor(m => m.RoleName, (SelectList)ViewBag.Roles, "- Select Role -", new { @class = "form-control" })*@
                                     @*@Html.DropDownList("Roles", ViewBag.Roles as SelectList, htmlAttributes: new { @class = "form-control" })*@
@@ -59,8 +61,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-2 col-sm-10 ">
-                                    <input class="btn btn-space btn-warning kaydet" style="font-size: 16px; height:40px" id="btnUpdate" value="Update" onclick="Update('@Model.Id')" />
-                                    <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("UserList","UserManagement")'" value="Cancel" />
+                                    <input class="btn btn-space btn-warning kaydet" style="font-size: 16px; height:40px" id="btnUpdate" value="@Localizer["Update"]" onclick="Update('@Model.Id')" />
+                                    <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("UserList","UserManagement")'" value="@Localizer["Cancel"]" />
                                     <input type="hidden" id="@Model.Id" />
                                 </div>
                             </div>
@@ -71,58 +73,58 @@
                         <form action="#" class="form-horizontal group-border-dashed" novalidate="">
                             <br>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">First Name :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["First Name"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="firstName" name="FirstName" value="">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Last Name :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Last Name"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="lastName" name="LastName" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Phone Number :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Phone Number"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="phoneNumber" name="PhoneNumber" value="">
                                 </div>
                             </div>
                              <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Card Number :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Card Number"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="cardNumber" name="CardNumber" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Email :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Email"] :</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control parsley-error" data-parsley-id="29" id="email" name="Email" value="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi">Password :</label>
+                                <label class="col-sm-3 control-label yazi">@Localizer["Password"] :</label>
                                 <div class="col-sm-6">
                                     <div class="col-xs-6">
-                                        <input type="password" placeholder="Password" class="form-control" id="password">
+                                        <input type="password" placeholder="@Localizer["Password"]" class="form-control" id="password">
                                     </div>
                                     <div class="col-xs-6">
-                                        <input type="password" placeholder="Confirm Password" class="form-control" id="confirmPassword">
+                                        <input type="password" placeholder="@Localizer["Confirm Password"]" class="form-control" id="confirmPassword">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label yazi" for="sel1">Role :</label>
+                                <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Role"] :</label>
                                 <div class="col-sm-6">
                                     @Html.DropDownListFor(m => m.RoleName, (SelectList)ViewBag.Roles, "- Select Role -", new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-2 col-sm-10 ">
-                                    <input class="btn btn-space btn-success kaydet" style="font-size: 16px; height:40px" id="btnSave" value="Save" />
-                                    <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("UserList","UserManagement")'" value="Cancel" />
+                                    <input class="btn btn-space btn-success kaydet" style="font-size: 16px; height:40px" id="btnSave" value="@Localizer["Save"]" />
+                                    <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("UserList","UserManagement")'" value="@Localizer["Cancel"]" />
                                 </div>
                             </div>
                         </form>

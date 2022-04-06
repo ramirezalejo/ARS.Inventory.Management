@@ -1,15 +1,17 @@
-﻿@model IEnumerable<ARS.Inventory.Management.Models.UserManagementViewModel>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<ARS.Inventory.Management.Models.UserManagementViewModel>
 
 <div class="row">
     <div class="col-sm-12" style="margin-top: 30px">
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
                 <center>
-                    <h2 class="page-head-title"><b><b>User Management Screen</b></b></h2>
+                    <h2 class="page-head-title"><b><b>@Localizer["User Management Screen"]</b></b></h2>
                 </center>
                 <br />
                 <div class="col-sm-4">
-                    <a href="@Url.Action("EditUser","UserManagement")"><button class="btn btn-primary" style="font-size:14px">New User</button></a><br>
+                    <a href="@Url.Action("EditUser","UserManagement")"><button class="btn btn-primary" style="font-size:14px">@Localizer["New User"]</button></a><br>
                 </div>
                 <br><hr>
                 <div class="panel-body">
@@ -18,10 +20,10 @@
                         <thead>
                             <tr style=" background-color:lavender;">
 
-                                <th style="width:21%;">User</th>
-                                <th style="width:15%;">Phone</th>
-                                <th style="width:25%;">Email</th>
-                                <th style="width:20%;">Registered Date</th>
+                                <th style="width:21%;">@Localizer["User"]</th>
+                                <th style="width:15%;">@Localizer["Phone"]</th>
+                                <th style="width:25%;">@Localizer["Email"]</th>
+                                <th style="width:20%;">@Localizer["Registered Date"]</th>
                                 <th style="width:12%">Role</th>
 
                                 <th style="width:8%;"></th>
@@ -48,8 +50,8 @@
                                     <div class="btn-group btn-hspace">
                                         <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle islemler" aria-expanded="false">Actions<span class="icon-dropdown mdi mdi-chevron-down"></span></button>
                                         <ul role="menu" class="dropdown-menu pull-right">
-                                            <li><a href="@Url.Action("UpdateUser","UserManagement", new { id=item.Id})"><i class="icon mdi mdi-edit"></i><span>Edit</span></a></li>
-                                            <li><a href="#" onclick="Delete('@item.Id')"><i class="icon mdi mdi-delete"></i><span>Delete</span></a></li>
+                                            <li><a href="@Url.Action("UpdateUser","UserManagement", new { id=item.Id})"><i class="icon mdi mdi-edit"></i><span>@Localizer["Edit"]</span></a></li>
+                                            <li><a href="#" onclick="Delete('@item.Id')"><i class="icon mdi mdi-delete"></i><span>@Localizer["Delete"]</span></a></li>
                                         </ul>
                                     </div>
                                 </td>
