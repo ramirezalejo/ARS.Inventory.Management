@@ -1,7 +1,5 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace ARS.Inventory.Management.Controllers
 {
@@ -15,18 +13,22 @@ namespace ARS.Inventory.Management.Controllers
         IUserService _user;
         IPurchaseService _purchase;
 
-        public HomeController(ISupplierService supplier, IProductService product, IOrderService order, IUserService user, IPurchaseService purchase)
+        public HomeController(ISupplierService supplier, 
+            IProductService product, 
+            IOrderService order, 
+            IUserService user, 
+            IPurchaseService purchase)
         {
-            this._supplier = supplier;
-            this._product = product;
-            this._order = order;
-            this._user = user;
-            this._purchase = purchase;
+            _supplier = supplier;
+            _product = product;
+            _order = order;
+            _user = user;
+            _purchase = purchase;
         }
 
         public Microsoft.AspNetCore.Mvc.ActionResult Index()
         {
-            HomeViewModel vm = new HomeViewModel();
+            var vm = new HomeViewModel();
 
             //vm.TotalSuppliers = _supplier.GetAll().Count<Supplier>();
             //vm.TotalOrders = _order.GetAll().Count<Orders>();

@@ -17,6 +17,7 @@ namespace ARS.Inventory.Management.Domain.Models
         public bool ConfirmStatus { get; set; }
         public string ShippingAddress { get; set; }
 
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }

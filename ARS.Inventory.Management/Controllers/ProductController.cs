@@ -28,7 +28,7 @@ namespace ARS.Inventory.Management.Controllers
         // GET: Product
         public IActionResult ListProduct()
         {
-            var result = _product.GetAll().Select(x => new ProductViewModel
+            return View(_product.GetAll().Select(x => new ProductsViewModel
             {
 
                 Id = x.Id,
@@ -39,9 +39,7 @@ namespace ARS.Inventory.Management.Controllers
                 Category = x.Category,
                 Supplier = x.Supplier,
                 Quantity = x.Quantity
-            });
-
-            return View(result);
+            }));
         }
 
         public IActionResult AddProduct()
@@ -63,7 +61,7 @@ namespace ARS.Inventory.Management.Controllers
                 var product = _product.GetById(id);
                 if (product != null)
                 {
-                    var vm = new ProductViewModel
+                    var vm = new ProductsViewModel
                     {
                         Id = product.Id,
                         Code = product.Code,
@@ -92,9 +90,9 @@ namespace ARS.Inventory.Management.Controllers
 
 
         [HttpPost]
-        public IActionResult AddProduct(ProductViewModel model)
+        public IActionResult AddProduct(ProductsViewModel model)
         {
-            var result = _mapper.Map<ProductViewModel, Product>(model);
+            var result = _mapper.Map<ProductsViewModel, Product>(model);
             _product.Insert(result);
             return View();
         }

@@ -7,7 +7,8 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         T GetById(Expression<Func<T, bool>> filter);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filter);
-        T Insert(T entity);
+        void Insert(T entity);
+        Task InsertAsync(T entity);
         void Update(T entity);
         void UpdateAll(IList<T> entities);
         void Delete(Expression<Func<T, bool>> filter);

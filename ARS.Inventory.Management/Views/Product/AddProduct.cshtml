@@ -1,17 +1,17 @@
-﻿@model ARS.Inventory.Management.Models.ProductViewModel
-
-
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model ARS.Inventory.Management.Models.ProductsViewModel
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default panel-border-color panel-border-color-primary">
             @if (Model != null)
             {
-                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>Update Product</b></div>
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["Update Product"]</b></div>
             }
             else
             {
-                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>New Product</b></div>
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["New Product"]</b></div>
 
             }
             <div class="panel-body">
@@ -20,48 +20,48 @@
                 <form action="#" class="form-horizontal group-border-dashed" novalidate="">
                     <br>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Product Code :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Product Code"]:</label>
                         <div class="col-sm-6">
-                            <input type="text" placeholder="Product Code..." class="form-control parsley-error" data-parsley-id="29" id="productCode" name="Code" value="@Model.Code">
+                            <input type="text" placeholder="@Localizer["Product Code"]..." class="form-control parsley-error" data-parsley-id="29" id="productCode" name="Code" value="@Model.Code">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Product Name :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Product Name"]:</label>
                         <div class="col-sm-6">
-                            <input type="text" placeholder="Enter the Product Name..." class="form-control parsley-error" data-parsley-id="29" id="productName" name="Name" value="@Model.Name">
+                            <input type="text" placeholder="@Localizer["Enter the Product Name"]"..." class="form-control parsley-error" data-parsley-id="29" id="productName" name="Name" value="@Model.Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi" for="sel1">Category :</label>
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Category"]:</label>
                         <div class="col-sm-6">
                             @Html.DropDownListFor(m => m.CategoryId, (SelectList)ViewBag.Category, "- Select Category -", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi" for="sel1">Supplier :</label>
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Supplier"]:</label>
                         <div class="col-sm-6">
                             @Html.DropDownListFor(m => m.SupplierId, (SelectList)ViewBag.Supplier, "- Select Supplier -", new { @class = "form-control" })
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Quantity :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Quantity"]:</label>
                         <div class="col-sm-6">
-                            <input type="number" min="1" data-parsley-max="6" placeholder="Enter the quantity..." class="form-control parsley-error" data-parsley-id="39" name="Quantity" id="quantity" value="@Model.Quantity">
+                            <input type="number" min="1" data-parsley-max="6" placeholder="@Localizer["Enter the quantity"]"..." class="form-control parsley-error" data-parsley-id="39" name="Quantity" id="quantity" value="@Model.Quantity">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Cost Price :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Cost Price"]:</label>
                         <div class="col-sm-6">
-                            <input type="text" data-parsley-max="6" placeholder="Enter the cost price..." class="form-control parsley-error" data-parsley-id="39" name="PurchasingPrice" id="productPurchase" value="@Model.PurchasingPrice">
+                            <input type="text" data-parsley-max="6" placeholder="@Localizer["Enter the cost price"]"..." class="form-control parsley-error" data-parsley-id="39" name="PurchasingPrice" id="productPurchase" value="@Model.PurchasingPrice">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Selling Price :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Selling Price"]:</label>
                         <div class="col-sm-6">
-                            <input type="text" data-parsley-max="6" placeholder="Enter the sales price..." class="form-control parsley-error" data-parsley-id="39" name="SellingPrice" id="productSelling" value="@Model.SellingPrice">
+                            <input type="text" data-parsley-max="6" placeholder="@Localizer["Enter the sales price"]"..." class="form-control parsley-error" data-parsley-id="39" name="SellingPrice" id="productSelling" value="@Model.SellingPrice">
                         </div>
                     </div>
                     @*<div class="form-group">
@@ -77,8 +77,8 @@
 
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-10 ">
-                            <input class="btn btn-space btn-warning kaydet" style="font-size: 16px; height:40px" id="btnUpdate" value="Update" onclick="Update(@Model.Id)" />
-                            <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("ListProduct","Product")'" value="Cancel" />
+                            <input class="btn btn-space btn-warning kaydet" style="font-size: 16px; height:40px" id="btnUpdate" value="@Localizer["Update"]" onclick="Update(@Model.Id)" />
+                            <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("ListProduct","Product")'" value="@Localizer["Cancel"]" />
                             <input type="hidden" id="@Model.Id" />
                         </div>
                     </div>
@@ -89,46 +89,46 @@
                 <form action="#" class="form-horizontal group-border-dashed" novalidate="">
                     <br>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Product Code :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Product Code"]:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control parsley-error" data-parsley-id="29" id="productCode" name="Code">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Product Name :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Product Name"]:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control parsley-error" data-parsley-id="29" id="productName" name="Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi" for="sel1">Category :</label>
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Category"]:</label>
                         <div class="col-sm-6">
                             @Html.DropDownListFor(m => m.CategoryId, (SelectList)ViewBag.Category, "- Select Category -", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi" for="sel1">Supplier :</label>
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Supplier"]:</label>
                         <div class="col-sm-6">
                             @Html.DropDownListFor(m => m.SupplierId, (SelectList)ViewBag.Supplier, "- Select Supplier -", new { @class = "form-control" })
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Quantity :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Quantity"]:</label>
                         <div class="col-sm-6">
                             <input type="number" min="1" data-parsley-max="6"  class="form-control parsley-error" data-parsley-id="39" name="Quantity" id="quantity">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Cost Price :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Cost Price"]:</label>
                         <div class="col-sm-6">
                             <input type="text" data-parsley-max="6"  class="form-control parsley-error" data-parsley-id="39" name="PurchasingPrice" id="productPurchase">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi">Selling Price :</label>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Selling Price"]:</label>
                         <div class="col-sm-6">
                             <input type="text" data-parsley-max="6"  class="form-control parsley-error" data-parsley-id="39" name="SellingPrice" id="productSelling">
                         </div>
@@ -148,19 +148,16 @@
                     </div>*@
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-10 ">
-                            <input class="btn btn-space btn-success kaydet" style="font-size: 16px; height:40px" id="btnSave" value="Save" />
-                            <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("ListPurchase","Purchase")'" value="Cancel" />
+                            <input class="btn btn-space btn-success kaydet" style="font-size: 16px; height:40px" id="btnSave" value="@Localizer["Save"]" />
+                            <input class="btn btn-space btn-default kaydet" style="height: 40px; font-size: 14px;" id="btnCancel" onclick="window.location.href ='@Url.Action("ListPurchase","Purchase")'" value="@Localizer["Cancel"]" />
                         </div>
                     </div>
-
-
                 </form>
                 }
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(function () {
@@ -180,25 +177,12 @@
     }
 </script>
 
-
-
 <script>
-   var token = sessionStorage.getItem("accessToken");
-var headers = {};
-headers.Authorization = "Bearer " + token;
-
-$(document).ready(function() {
-  if (token == null) {
-        toastr.info( "Please try again after signin up !", { timeOut: 3000 });
-        window.location.href = "/UserManagement/Login";
-  }
-});
-
-    $("#btnSave").click(function() {
+  $("#btnSave").click(function() {
   $.ajax({
-    url: "http://localhost:5000/api/Products",
+    url: "/api/Products",
     method: "POST",
-    headers: headers,
+    async: false,
     data: {
       Name: $("#productName").val(),
       Code: $("#productCode").val(),
@@ -213,9 +197,9 @@ $(document).ready(function() {
       toastr.success( "Product added successfully !", { timeOut: 2000 });
       window.location.href = "/Product/ListProduct";
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 });
 
@@ -238,30 +222,10 @@ var Update = function(productId) {
     toastr.success( "Product updated successfully !", { timeOut: 2000 });
       window.location.href = "/Product/ListProduct";
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 
 </script>
-
-
-
-
-@*<div class="form-group">
-
-        <label class="col-sm-3 control-label yazi"><br><br><br><b>Product Picture : </b></label>
-        <div class="col-sm-4">
-            <br>
-            <br>
-            <br>
-            <input type="file" name="pic" accept="image/*" placeholder="Ürün Resmi Ekleyiniz..." class="form-control parsley-error">
-        </div>
-
-        <div class="col-sm-3">
-            &nbsp      &nbsp      &nbsp &nbsp
-
-            <img style="margin-top: -12px" width="140" height="115" src="http://news.yuvayana.org/wp-content/uploads/sites/10/2015/06/muther-dairy-milk.jpg">
-        </div>
-    </div>*@

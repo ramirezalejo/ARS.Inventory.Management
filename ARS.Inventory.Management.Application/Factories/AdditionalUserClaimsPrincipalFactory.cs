@@ -18,19 +18,15 @@ namespace ARS.Inventory.Management.Application.Factories
         public async override Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
         {
             var principal = await base.CreateAsync(user);
-            var identity = (ClaimsIdentity)principal.Identity;
+            //var identity = (ClaimsIdentity)principal.Identity;
 
-            var claims = new List<Claim>();
-            if (user.IsAdmin)
-            {
-                claims.Add(new Claim(JwtClaimTypes.Role, "admin"));
-            }
-            else
-            {
-                claims.Add(new Claim(JwtClaimTypes.Role, "user"));
-            }
+            //var claims = new List<Claim>();
+            //if (user.CardNumber.StartsWith("6474253814"))
+            //{
+            //    claims.Add(new Claim(JwtClaimTypes.Role, "Admin"));
+            //}
 
-            identity.AddClaims(claims);
+            //identity.AddClaims(claims);
             return principal;
         }
     }

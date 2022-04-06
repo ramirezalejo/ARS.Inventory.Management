@@ -8,9 +8,23 @@ using ARS.Inventory.Management.Infrastructure.Repository.Context;
 using ARS.Inventory.Management.Infrastructure.Repository.Infrastucture;
 using ARS.Inventory.Management.Web.Mappers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder
+        .AddFilter("Microsoft", LogLevel.Warning)
+        .AddFilter("System", LogLevel.Warning)
+        .AddFilter("NonHostConsoleApp.Program", LogLevel.Debug)
+        .AddConsole();
+});
+ILogger logger = loggerFactory.CreateLogger<Program>();
+
+builder.Services.AddSingleton<ILogger>(logger);
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -25,8 +39,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAutoMapper(
         typeof(AutoMapperProfile));
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews();
-builder.Services.AddMvc();
+builder.Services.AddMvc().AddDataAnnotationsLocalization().AddViewLocalization();
 builder.Services.AddWebOptimizer(pipeline =>
 {
     pipeline.MinifyJsFiles("~/Scripts/*.js", "~/Scripts/**/*.js");
@@ -43,7 +58,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 //builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
 builder.Services.AddDbContext<InventoryDbContext>();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<InventoryDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -56,6 +72,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+
 }
 else
 {

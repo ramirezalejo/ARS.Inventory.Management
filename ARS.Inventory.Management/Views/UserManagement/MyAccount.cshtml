@@ -1,7 +1,9 @@
-﻿<div class="row">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<div class="row">
     <div class="col-md-12">
         <div class="panel panel-default panel-border-color panel-border-color-primary">
-            <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>My Account Profile</b></div>
+            <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["My Account Profile"]</b></div>
             <div class="panel-body">
                 <form action="#" class="form-horizontal group-border-dashed" novalidate="">
                     <br>
@@ -13,33 +15,33 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi"> UserName :</label>
+                        <label class="col-sm-3 control-label yazi"> @Localizer["UserName"] :</label>
                         <div class="col-sm-6">
                             <input type="text" value="@User.Identity.Name" class="form-control parsley-error" readonly style="font-weight: bold;">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi"> Old Password :</label>
+                        <label class="col-sm-3 control-label yazi"> @Localizer["Old Password"] :</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control parsley-error" data-parsley-id="29" id="oldPassword">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi"> New Password :</label>
+                        <label class="col-sm-3 control-label yazi"> @Localizer["New Password"] :</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control parsley-error" data-parsley-id="29" id="newPassword">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi"> Confirm Password :</label>
+                        <label class="col-sm-3 control-label yazi"> @Localizer["Confirm Password"] :</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control parsley-error" data-parsley-id="29" id="confirmPassword">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-10 ">
-                            <button type="submit" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave" onclick="Change()">Save</button>
-                            <button class="btn btn-space btn-default" style="height: 40px; font-size: 14px;" id="cancel">Cancel</button>
+                            <button type="button" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave" onclick="Change()">@Localizer["Save"]</button>
+                            <button class="btn btn-space btn-default" style="height: 40px; font-size: 14px;" id="cancel">@Localizer["Cancel"]</button>
                         </div>
                     </div>
                 </form>
@@ -51,26 +53,17 @@
 <script>
 
     $("#cancel").click(function(){
-    window.location.href = "http://localhost:5000/Home/Index";
+    window.location.href = "/Home/Index";
     return false;
     });
 
-   var token = sessionStorage.getItem("accessToken");
-    var headers = {};
-    headers.Authorization = "Bearer " + token;
 
-    $(document).ready(function() {
-      if (token == null) {
-            toastr.info( "Please try again after signin up !", { timeOut: 3000 });
-            window.location.href = "/UserManagement/Login";
-      }
-    });
 
 var Change = function() {
   $.ajax({
     url: "/api/Account/ChangePassword",
     method: "POST",
-    headers: headers,
+    async: false,
     data: {
       OldPassword: $("#oldPassword").val(),
       NewPassword: $("#newPassword").val(),
@@ -81,9 +74,9 @@ var Change = function() {
       toastr.success( "Password changed successfully !", { timeOut: 3000 });
       window.location.href = "/Home/Index";
     },
-    error: function(jqXHR) {
-      alert("Error cannot changed !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 </script>

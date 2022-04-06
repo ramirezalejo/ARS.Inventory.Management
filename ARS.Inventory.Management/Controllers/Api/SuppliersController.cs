@@ -26,7 +26,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             {
                 Id = c.Id,
                 Name = c.Name,
-                Adress = c.Adress,
+                Adress = c.Address,
                 PhoneNumber = c.PhoneNumber
 
             });
@@ -44,7 +44,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 {
                     Id = result.Id,
                     Name = result.Name,
-                    Adress = result.Adress,
+                    Adress = result.Address,
                     PhoneNumber = result.PhoneNumber
                 };
                 return Ok(vm);
@@ -53,19 +53,32 @@ namespace ARS.Inventory.Management.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult Insert(SupplierViewModel model)
+        public async Task<IActionResult> Insert(SupplierViewModel model)
         {
-            Supplier supplier = new Supplier
+            try
             {
-                Id = model.Id,
-                Name = model.Name,
-                Adress = model.Adress,
-                PhoneNumber = model.PhoneNumber,
-                Email = model.Email
-            };
+                bool test = false;
+                if (test)
+                    throw new Exception("Test error");
 
-            _supplier.Insert(supplier);
-            return Ok(supplier);
+                Supplier supplier = new Supplier
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Address = model.Adress,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email
+                };
+
+                await _supplier.InsertAsync(supplier);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+            
+
         }
         [HttpPut]
         public IActionResult Update(SupplierViewModel model)
@@ -74,7 +87,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             {
                 Id = model.Id,
                 Name = model.Name,
-                Adress = model.Adress,
+                Address = model.Adress,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email
             };
@@ -87,7 +100,7 @@ namespace ARS.Inventory.Management.Controllers.Api
         public IActionResult Delete(int id)
         {
             _supplier.Delete(id);
-            return Ok("Deleted Successfully !");
+            return Ok("Deleted Successfully!");
         }
     }
 }

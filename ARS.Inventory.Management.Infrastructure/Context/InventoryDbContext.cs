@@ -17,7 +17,7 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Purchase> Purchase { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
 
     }
 }

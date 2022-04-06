@@ -1,14 +1,17 @@
-﻿@model IEnumerable<ARS.Inventory.Management.Models.CategoryViewModel>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<ARS.Inventory.Management.Models.CategoryViewModel>
+
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default panel-border-color panel-border-color-primary">
-            <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>Category Management</b></div>
+            <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["Category Management"]</b></div>
             <div class="panel-body">
                 <form action="#" class="form-horizontal group-border-dashed" novalidate="">
                     <br>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label yazi"> Cateogry Name :</label>
+                        <label class="col-sm-3 control-label yazi"> @Localizer["Cateogry Name"] :</label>
                         <div class="col-sm-6">
                             <input type="text" placeholder="Enter the new category..." class="form-control parsley-error" data-parsley-id="29" id="categoryName">
                         </div>
@@ -16,8 +19,8 @@
 
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-10 ">
-                            <button type="submit" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">Save</button>
-                            <button class="btn btn-space btn-default " style="height: 40px; font-size: 14px;">Cancel</button>
+                            <button type="button" class="btn btn-space btn-success" style="font-size: 17px; width: 80px; height:38px;" id="btnSave">@Localizer["Save"]</button>
+                            <button class="btn btn-space btn-default " style="height: 40px; font-size: 14px;">@Localizer["Cancel"]</button>
                         </div>
                     </div>
 
@@ -25,7 +28,7 @@
                         <div class="panel panel-default panel-table">
 
                             <div class="panel-heading" style="font-size: 22px">
-                                <b>Category List</b><hr>
+                                <b>@Localizer["Category List"]</b><hr>
 
 
                             </div>
@@ -33,7 +36,7 @@
                                 <table class="table table-condensed table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Category Name</th>
+                                            <th>@Localizer["Category Name"]</th>
                                             <th style="float: right;margin-right: -70px;">&nbsp; Category Actions</th>
                                             <th class="actions"></th>
                                         </tr>
@@ -65,29 +68,19 @@
 </div>
 
 <script type="text/javascript">
-var token = sessionStorage.getItem("accessToken");
-var headers = {};
-headers.Authorization = "Bearer " + token;
 
-$(document).ready(function() {
-  if (token == null) {
-    toastr.info("Please try again after signing up!");
-    window.location.href = "/UserManagement/Login";
-  }
-});
 
 var Delete = function(id) {
   $.ajax({
     url: "/api/Categories/" + id,
     method: "DELETE",
-    headers: headers,
     success: function() {
-                    window.location.replace("/Product/CategoryList");
+        window.location.replace("/Product/CategoryList");
 
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 };
 
@@ -95,19 +88,18 @@ $("#btnSave").click(function() {
   $.ajax({
     url: "/api/Categories",
     method: "POST",
-    headers: headers,
     data: {
       Name: $("#categoryName").val()
     },
     success: function() {
         window.location.href = "/Product/";
-                    window.location.replace("/Product/CategoryList");
+        window.location.replace("/Product/CategoryList");
 
 
     },
-    error: function(jqXHR) {
-      alert("Error !");
-    }
+    error: function (error) {
+           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+        }
   });
 });
 

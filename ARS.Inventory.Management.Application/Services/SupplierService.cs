@@ -29,18 +29,22 @@ namespace ARS.Inventory.Management.Application.Services
 
         public Supplier GetById(int supplierId)
         {
-            Supplier result = null;
+            if (supplierId != default)
+                return _supplierRepository.GetById(c => c.Id == supplierId);
 
-            if (supplierId != null)
-                result = _supplierRepository.GetById(c => c.Id == supplierId);
-
-            return result;
+            return null;
         }
 
         public void Insert(Supplier supplier)
         {
             if (supplier != null)
                 _supplierRepository.Insert(supplier);
+        }
+
+        public async Task InsertAsync(Supplier supplier)
+        {
+            if (supplier != null)
+                await _supplierRepository.InsertAsync(supplier);
         }
 
         public void Update(Supplier supplier)
@@ -51,7 +55,7 @@ namespace ARS.Inventory.Management.Application.Services
 
         public void Delete(int supplierId)
         {
-            if (supplierId != null)
+            if (supplierId != default)
                 _supplierRepository.Delete(x => x.Id == supplierId);
         }
     }
