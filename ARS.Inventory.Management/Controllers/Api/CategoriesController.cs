@@ -1,5 +1,4 @@
-﻿using ARS.Inventory.Management.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,12 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Domain.Interfaces;
+using ARS.Inventory.Management.Web.Models;
 
 namespace ARS.Inventory.Management.Controllers.Api
 {
     [Authorize]
     [Route("api/Categories")]
-    public class CategoriesController : Microsoft.AspNetCore.Mvc.ControllerBase
+    public class CategoriesController : Controller
     {
         ICategoryService _category;
         public CategoriesController(ICategoryService category)

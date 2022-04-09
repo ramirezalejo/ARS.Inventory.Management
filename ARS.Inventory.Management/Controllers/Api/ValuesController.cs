@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ARS.Inventory.Management.Controllers
 {
     [Authorize]
-    public class ValuesController : Microsoft.AspNetCore.Mvc.ControllerBase
+    public class ValuesController : Controller
     {
         // GET api/values
         public IEnumerable<string> Get()

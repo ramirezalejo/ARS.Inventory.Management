@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,7 +64,9 @@ namespace ARS.Inventory.Management.Controllers.Api
                     OrderDate = x.OrderDate,
                     ConfirmDate = x.ConfirmDate,
                     ConfirmStatus = x.ConfirmStatus,
-                    ShippingAddress = x.ShippingAddress
+                    CustomerId = x.CustomerId,
+                    CustomerName = x.Customer.Name,
+                    ShippingAddress = x.ShippingAddress ?? x.Customer.Address
 
                 }).OrderByDescending(x => x.OrderDate);
 
@@ -86,6 +84,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                     Id = result.Id,
                     OrderDate = result.OrderDate,
                     ProductId = result.ProductId,
+                    CustomerId= result.CustomerId,
                     ConfirmDate = result.ConfirmDate,
                     ConfirmStatus = result.ConfirmStatus,
                     UserId = result.UserId
@@ -102,6 +101,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             {
                 ProductId = model.ProductId,
                 UserId = user,
+                CustomerId = model.CustomerId,
                 ShippingAddress = model.ShippingAddress
             };
             _order.Insert(order);
@@ -116,6 +116,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 Id = model.Id,
                 ProductId = model.ProductId,
                 UserId = model.UserId,
+                CustomerId = model.CustomerId,
                 ShippingAddress = model.ShippingAddress
             };
             _order.Update(order);

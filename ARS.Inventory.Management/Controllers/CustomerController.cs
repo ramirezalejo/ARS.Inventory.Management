@@ -1,5 +1,5 @@
 ﻿using ARS.Inventory.Management.Infrastructure.Repository.Context;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

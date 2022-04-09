@@ -5,7 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +13,7 @@ namespace ARS.Inventory.Management.Controllers.Api
 {
     [Authorize]
     [Route("/api/Purchases")]
-    public class PurchasesController : ControllerBase
+    public class PurchasesController : Controller
     {
         private IPurchaseService _purchase;
 

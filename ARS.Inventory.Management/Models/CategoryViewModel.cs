@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ARS.Inventory.Management.Models
+namespace ARS.Inventory.Management.Web.Models
 {
     public class CategoryViewModel
     {

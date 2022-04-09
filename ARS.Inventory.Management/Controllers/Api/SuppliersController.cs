@@ -2,7 +2,7 @@
 using System.Linq;
 using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +10,7 @@ namespace ARS.Inventory.Management.Controllers.Api
 {
     [Authorize]
     [Route("api/Suppliers")]
-    public class SuppliersController : Microsoft.AspNetCore.Mvc.ControllerBase
+    public class SuppliersController : Controller
     {
         private ISupplierService _supplier;
 

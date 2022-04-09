@@ -1,4 +1,4 @@
-﻿namespace ARS.Inventory.Management.Models
+﻿namespace ARS.Inventory.Management.Web.Models
 {
     public class UserManagementViewModel
     {

@@ -1,9 +1,10 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ARS.Inventory.Management.Controllers
 {
-    public class OrderController : Microsoft.AspNetCore.Mvc.Controller
+    public class OrderController : Controller
     {
         private IOrderService _order;
 
@@ -12,7 +13,7 @@ namespace ARS.Inventory.Management.Controllers
             this._order = orders;
         }
         // GET: Orders
-        public Microsoft.AspNetCore.Mvc.ActionResult ListOrder()
+        public ActionResult ListOrder()
         {
             var result = _order.GetAllUnConfirmedOrders()
             .Select(m => new OrderViewModel
@@ -27,7 +28,7 @@ namespace ARS.Inventory.Management.Controllers
             return View(result);
         }
 
-        public Microsoft.AspNetCore.Mvc.ActionResult ConfirmedListOrder()
+        public ActionResult ConfirmedListOrder()
         {
             var result = _order.GetAllConfirmedOrders()
             .Select(m => new OrderViewModel
