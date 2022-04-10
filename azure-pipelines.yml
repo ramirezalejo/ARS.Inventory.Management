@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: '7043ec00-f447-4e2d-9837-fddab5e5f7ef'
   imageRepository: 'arsinventorymanagement'
   containerRegistry: 'arssoftware.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/ARS.Inventory.Management/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
