@@ -34,6 +34,12 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
             return dbSet.AsEnumerable();
         }
 
+        public virtual IEnumerable<T> GetAllPaginated(int page, int pageSize)
+        {
+
+            return dbSet.AsEnumerable().Skip(page * pageSize).Take(pageSize);
+        }
+
         public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).AsEnumerable();

@@ -141,6 +141,9 @@
   <data name="My Account" xml:space="preserve">
     <value>Mi Cuenta</value>
   </data>
+  <data name="New Customer" xml:space="preserve">
+    <value>Crear Cliente</value>
+  </data>
   <data name="New Product" xml:space="preserve">
     <value>Crear Producto</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Supplier Management" xml:space="preserve">
     <value>Proveedores</value>
+  </data>
+  <data name="Update Customer" xml:space="preserve">
+    <value>Actualizar Cliente</value>
   </data>
   <data name="Update Products" xml:space="preserve">
     <value>Actualizar Productos</value>

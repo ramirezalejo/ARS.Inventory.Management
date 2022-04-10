@@ -1,8 +1,7 @@
-﻿
-using ARS.Inventory.Management.Domain.Models;
+﻿using ARS.Inventory.Management.Domain.Models;
 
-namespace ARS.Inventory.Management.Models
-{
+namespace ARS.Inventory.Management.Web.Models
+{ 
     public class TopSeller
     {
         public int ProductCount { get; set; }

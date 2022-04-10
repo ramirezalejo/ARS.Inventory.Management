@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ARS.Inventory.Management.Models
+namespace ARS.Inventory.Management.Web.Models
 {
     // Models used as parameters to AccountController actions.
 

@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-@model ARS.Inventory.Management.Models.HomeViewModel
+@model ARS.Inventory.Management.Web.Models.HomeViewModel
 @inject IViewLocalizer Localizer
 
 @if (User.IsInRole("Admin"))
@@ -137,7 +137,7 @@
                             <tr>
                                 <td class="chart-legend-color"><span data-color="top-sales-color3" style="background-color: #cacaca"></span></td>
                                 <td>@item.ProductName</td>
-                                <td class="chart-legend-value">@String.Format("{0:0.###}", item.Profit) ₺</td>
+                                <td class="chart-legend-value">@String.Format("{0:0.###}", item.Profit)</td>
                             </tr>
                         }
 
@@ -178,7 +178,7 @@
                         {
                             <tr>
                                 <td>@item.Product.Name</td>
-                                <td>@String.Format("{0:0.###}", item.Product.SellingPrice) ₺</td>
+                                <td>@String.Format("{0:0.###}", item.Product.SellingPrice)</td>
                                 <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
                                 <td class="text-muted ">@item.Product.Category.Name</td>
                             </tr>
@@ -212,7 +212,7 @@
                         {
                             <tr>
                                 <td>@item.Product.Name</td>
-                                <td>@String.Format("{0:0.###}", item.Product.PurchasingPrice) ₺</td>
+                                <td>@String.Format("{0:0.###}", item.Product.PurchasingPrice)</td>
                                 <td>@item.Quantity</td>
                                 <td>@item.CreatedTime</td>
                                 <td>@item.Product.Category.Name</td>

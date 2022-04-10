@@ -1,5 +1,5 @@
 ﻿using ARS.Inventory.Management.Domain.Models;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using AutoMapper;
 
 namespace ARS.Inventory.Management.Web.Mappers
@@ -13,13 +13,14 @@ namespace ARS.Inventory.Management.Web.Mappers
             CreateMap<Supplier, SupplierViewModel>();
             CreateMap<Product, ProductsViewModel>();
             CreateMap<Purchase, PurchaseViewModel>();
-
+            CreateMap<Customer, CustomerViewModel>();
 
             CreateMap<CategoryViewModel, Category>();
             CreateMap<OrderViewModel, Order>();
             CreateMap<SupplierViewModel, Supplier>();
             CreateMap<ProductsViewModel, Product>();
             CreateMap<PurchaseViewModel, Purchase>();
+            CreateMap<CustomerViewModel, Customer>();
         }
     }
 }

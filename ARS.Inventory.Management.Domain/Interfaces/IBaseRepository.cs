@@ -6,6 +6,7 @@ namespace ARS.Inventory.Management.Domain.Interfaces
     {
         T GetById(Expression<Func<T, bool>> filter);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAllPaginated(int page, int pageSize);
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filter);
         void Insert(T entity);
         Task InsertAsync(T entity);

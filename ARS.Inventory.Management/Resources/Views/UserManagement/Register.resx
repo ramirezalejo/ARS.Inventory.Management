@@ -129,6 +129,9 @@
   <data name="LastName" xml:space="preserve">
     <value>Apellidos</value>
   </data>
+  <data name="Login Page - Welcome" xml:space="preserve">
+    <value>Inicio - Bienvenido</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
@@ -136,6 +139,6 @@
     <value>Telefono</value>
   </data>
   <data name="Sign Up" xml:space="preserve">
-    <value>Registrarme</value>
+    <value>Registrarse</value>
   </data>
 </root>

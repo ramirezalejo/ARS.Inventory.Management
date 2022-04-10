@@ -1,6 +1,6 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
-using ARS.Inventory.Management.Models;
+using ARS.Inventory.Management.Web.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

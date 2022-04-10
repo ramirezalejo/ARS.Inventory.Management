@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ARS.Inventory.Management.Models
+namespace ARS.Inventory.Management.Web.Models
 {
     // Models returned by AccountController actions.
 

@@ -1,6 +1,6 @@
 ﻿using ARS.Inventory.Management.Domain.Models;
 
-namespace ARS.Inventory.Management.Models
+namespace ARS.Inventory.Management.Web.Models
 {
     public class PurchaseViewModel
     {

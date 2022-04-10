@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@model IEnumerable<ARS.Inventory.Management.Models.PurchaseViewModel>
+@model IEnumerable<ARS.Inventory.Management.Web.Models.PurchaseViewModel>
 
 
 <div class="row">
@@ -36,9 +36,9 @@
                         {
                             <tr>
                                 <td>@item.Product.Name</td>
-                                <td>@String.Format("{0:N0}", item.Product.PurchasingPrice) ₺</td>
+                                <td>@String.Format("{0:N0}", item.Product.PurchasingPrice)</td>
                                 <td>@item.Quantity</td>
-                                <td>@String.Format("{0:N0}", (item.Product.PurchasingPrice * item.Quantity)) ₺</td>
+                                <td>@String.Format("{0:N0}", (item.Product.PurchasingPrice * item.Quantity))</td>
                                 <td>@item.CreatedTime.ToString("dd-MM-yyyy HH:mm")</td>
                                 <td>@item.DeliveryTime.ToString("dd-MM-yyyy HH:mm")</td>
                                 <td>@item.Product.Supplier.Name</td>

@@ -102,6 +102,17 @@
 
             </ul>
         </li>*@
+        <li class="parent">
+                                        <a href="#"><i class="icon mdi mdi-card"></i><span>@Localizer["Customer Management"]</span></a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="@Url.Action("AddCustomer","Customer")" style="font-size: 14px">@Localizer["New Customer"]</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("ListCustomer","Customer")" style="font-size: 14px">@Localizer["Update Customer"]</a>
+                                            </li>
+                                        </ul    >
+                                    </li>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li class="parent">

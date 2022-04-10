@@ -11,6 +11,7 @@ namespace ARS.Inventory.Management.Domain.Models
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
+        public int CustomerId { get; set; }
         public string UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ConfirmDate { get; set; }
@@ -21,6 +22,9 @@ namespace ARS.Inventory.Management.Domain.Models
         public virtual Product Product { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customer { get; set; }
 
 
     }
