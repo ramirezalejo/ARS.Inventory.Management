@@ -78,5 +78,12 @@ namespace ARS.Inventory.Management.Web.Controllers.Api
             _customerService.Insert(customer);
             return Ok(customer);
         }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _customerService.Delete(id);
+            return Ok("Deleted Successfully !");
+        }
     }
 }

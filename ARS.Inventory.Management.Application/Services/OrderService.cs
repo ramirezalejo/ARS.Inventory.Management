@@ -18,9 +18,9 @@ namespace ARS.Inventory.Management.Application.Services
 
         public OrderService(IUnitOfWork _unitOfWork, IProductService productService)
         {
-            this.unitOfWork = _unitOfWork;
+            unitOfWork = _unitOfWork;
             _productService = productService;
-            this._orderRepository = new OrderRepository(unitOfWork);
+            _orderRepository = new OrderRepository(unitOfWork);
         }
         public IEnumerable<Order> GetAll()
         {

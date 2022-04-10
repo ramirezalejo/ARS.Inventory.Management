@@ -120,6 +120,9 @@
   <data name="Log In" xml:space="preserve">
     <value>Iniciar Sesion</value>
   </data>
+  <data name="Login Page - Welcome" xml:space="preserve">
+    <value>Inicio - Bienvenido</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>

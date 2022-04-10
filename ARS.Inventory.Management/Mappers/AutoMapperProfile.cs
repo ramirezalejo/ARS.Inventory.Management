@@ -20,6 +20,7 @@ namespace ARS.Inventory.Management.Web.Mappers
             CreateMap<SupplierViewModel, Supplier>();
             CreateMap<ProductsViewModel, Product>();
             CreateMap<PurchaseViewModel, Purchase>();
+            CreateMap<CustomerViewModel, Customer>();
         }
     }
 }

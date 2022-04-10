@@ -1,70 +1,49 @@
-﻿using ARS.Inventory.Management.Infrastructure.Repository.Context;
+﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Web.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace ARS.Inventory.Management.Controllers
+namespace ARS.Inventory.Management.Web.Controllers
 {
     public class CustomerController : Controller
     {
-        InventoryDbContext db;
+        private readonly ICustomerService _customerService;
+        private readonly IMapper _mapper;
 
-        public CustomerController(DbContextOptions<InventoryDbContext> dbContextOptions)
+        public CustomerController(ICustomerService customerService, IMapper mapper)
         {
-            db = new InventoryDbContext(dbContextOptions);
+            _customerService = customerService;
+            _mapper = mapper;
         }
-
-        // GET: Customer
-        public IActionResult ListCustomer()
+        public IActionResult Index()
         {
-            var result = (from user in db.Users
-                          join userRole in db.UserRoles on user.Id equals userRole.UserId
-                          join role in db.Roles on userRole.RoleId equals
-                          role.Id
-                          select new UserManagementViewModel()
-                          {
-                              Id = user.Id,
-                              UserName = user.UserName,
-                              //FirstName = user.FirstName,
-                              //LastName = user.LastName,
-                              PhoneNumber = user.PhoneNumber,
-                              Email = user.Email,
-                              //CardNumber = user.CardNumber,
-                              RegisteredDate = user.RegisteredDate,
-                              RoleName = role.Name
-                          }).ToList();
-
-            return View(result);
-        }
-
-        public IActionResult EditRole(string id)
-        {
-
-
-
             return View();
         }
 
-        public IActionResult Deneme()
+        public ActionResult ListCustomer(int page = 1, int pageSize = 10)
         {
+            return View(_mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAllPaginated(page, pageSize)));
+        }
 
-            var usersWithRoles = (from user in db.Users
-                                  join userRole in db.UserRoles on user.Id equals userRole.UserId
-                                  join role in db.Roles on userRole.RoleId equals
-                                  role.Id
-                                  select new UserManagementViewModel()
-                                  {
-                                      Id = user.Id,
-                                      //FirstName = user.FirstName,
-                                      //LastName = user.LastName,
-                                      UserName = user.UserName,
-                                      Email = user.Email,
-                                      RoleName = role.Name
-                                  }).ToList();
+        public ActionResult AddCustomer()
+        {
+            return View();
+        }
 
 
+        public ActionResult EditCustomer(int id)
+        {
+            if (id > 0)
+            {
+                var customer = _customerService.GetById(id);
 
-            return View(usersWithRoles);
+                if (customer != null)
+                {
+                    return View("AddCustomer", _mapper.Map<CustomerViewModel>(customer));
+                }
+            }
+
+            return View("AddPurchase");
         }
     }
 }

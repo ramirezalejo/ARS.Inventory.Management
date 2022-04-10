@@ -1,11 +1,12 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace ARS.Inventory.Management.Controllers
 {
-    public class PurchaseController : Microsoft.AspNetCore.Mvc.Controller
+    public class PurchaseController : Controller
     {
         private IProductService _product;
         private IPurchaseService _purchase;
@@ -16,7 +17,7 @@ namespace ARS.Inventory.Management.Controllers
             this._purchase = purchase;
         }
 
-        public Microsoft.AspNetCore.Mvc.ActionResult ListPurchase()
+        public ActionResult ListPurchase()
         {
             var result = _purchase.GetAll()
                 .Where(p=> p.Confirmation == false)
@@ -34,7 +35,7 @@ namespace ARS.Inventory.Management.Controllers
             return View(result);
         }
 
-        public Microsoft.AspNetCore.Mvc.ActionResult ConfirmedPurchase()
+        public ActionResult ConfirmedPurchase()
         {
             var result = _purchase.GetAll()
                 .Where(p => p.Confirmation == true)
@@ -51,7 +52,7 @@ namespace ARS.Inventory.Management.Controllers
             return View(result);
         }
 
-        public Microsoft.AspNetCore.Mvc.ActionResult AddPurchase()
+        public ActionResult AddPurchase()
         {
             var product = _product.GetAll();
             ViewBag.Products = new SelectList(product, "Id", "Name");
@@ -59,7 +60,7 @@ namespace ARS.Inventory.Management.Controllers
         }
 
 
-        public Microsoft.AspNetCore.Mvc.ActionResult EditPurchase(int id)
+        public ActionResult EditPurchase(int id)
         {
             if (id > 0)
             {

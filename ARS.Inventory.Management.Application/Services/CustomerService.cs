@@ -1,7 +1,7 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Infrastructure.Interfaces;
-using ARS.Inventory.Management.Infrastructure.Repositories;
+using ARS.Inventory.Management.Infrastructure.Repository;
 
 namespace ARS.Inventory.Management.Application.Services
 {
@@ -10,10 +10,10 @@ namespace ARS.Inventory.Management.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly CustomerRepository _customerRepository;
 
-        public CustomerService(IUnitOfWork unitOfWork, CustomerRepository customerRepository)
+        public CustomerService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _customerRepository = customerRepository;
+            _customerRepository = new CustomerRepository(_unitOfWork);
         }
 
         public IEnumerable<Customer> GetAllPaginated(int page = 1, int pageSize = 100)

@@ -260,6 +260,37 @@ namespace ARS.Inventory.Management.Data.Migrations
                 table: "Product",
                 column: "SupplierId");
 
+            migrationBuilder.CreateTable(
+               name: "Customer",
+               columns: c => new
+               {
+                   Id = c.Column<int>(nullable: false)
+                   .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                   Name = c.Column<string>(nullable: false),
+                   Email = c.Column<string>(),
+                   Phone = c.Column<string>(),
+                   Address = c.Column<string>(),
+                   Balance = c.Column<decimal>(),
+                   Comments = c.Column<string>(),
+                   CreatedBy = c.Column<string>(maxLength: 450),
+                   CreatedAt = c.Column<DateTime>(nullable: false, precision: 7),
+               },
+               constraints: t =>
+               {
+                   t.PrimaryKey("PK_CustomerId", t => t.Id);
+                   t.ForeignKey(
+                      name: "FK_Customer_AspNetUsers_UserId",
+                      column: x => x.CreatedBy,
+                      principalTable: "AspNetUsers",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.Restrict);
+               });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_UserId",
+                table: "Customer",
+                column: "CreatedBy");
+
 
             migrationBuilder.CreateTable(
                 name: "Order",
@@ -269,6 +300,7 @@ namespace ARS.Inventory.Management.Data.Migrations
                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = c.Column<int>(nullable: false),
                     UserId = c.Column<string>(maxLength: 450),
+                    CustomerId = c.Column<int>(),
                     OrderDate = c.Column<DateTime>(nullable: false),
                     ConfirmDate = c.Column<DateTime>(nullable: false),
                     ConfirmStatus = c.Column<bool>(nullable: false),
@@ -287,6 +319,12 @@ namespace ARS.Inventory.Management.Data.Migrations
                         name: "FK_Order_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    t.ForeignKey(
+                        name: "FK_Order_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -339,6 +377,9 @@ namespace ARS.Inventory.Management.Data.Migrations
                 name: "IX_Purchase_UserId",
                 table: "Purchase",
                 column: "UserId");
+
+
+           
 
             migrationBuilder.InsertData("AspNetRoles",
                 new string[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
