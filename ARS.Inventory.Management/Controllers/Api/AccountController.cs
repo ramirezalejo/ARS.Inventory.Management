@@ -18,7 +18,7 @@ namespace ARS.Inventory.Management.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<ApplicationUser> userManager, 
+        public AccountController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
             ILogger logger)
@@ -163,18 +163,8 @@ namespace ARS.Inventory.Management.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterBindingModel model)
         {
-            if (string.IsNullOrEmpty(model.RoleName))
-            {
-                model.RoleName = "Guest";
-                ModelState.Remove("RoleName");
-            }
-                
-                //model.RoleName = "Guest";
-            else
-            {
-                var roles = _roleManager.Roles.ToList();
-                model.RoleName = roles.FirstOrDefault(x => x.Name == model.RoleName)?.NormalizedName;
-            }
+
+            model.RoleName = "Guest";
 
             if (!ModelState.IsValid)
             {

@@ -1,9 +1,11 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ARS.Inventory.Management.Controllers
 {
+    [Authorize(Roles = "Admin,Seller")]
     public class OrderController : Controller
     {
         private IOrderService _order;

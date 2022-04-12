@@ -13,7 +13,7 @@ namespace ARS.Inventory.Management.Web.Mappers
             CreateMap<Supplier, SupplierViewModel>();
             CreateMap<Product, ProductsViewModel>();
             CreateMap<Purchase, PurchaseViewModel>();
-            CreateMap<Customer, CustomerViewModel>();
+            CreateMap<Customer, CustomerViewModel>().ForMember(c => c.CreatedByName, cus => cus.MapFrom(x => x.User.UserName));
 
             CreateMap<CategoryViewModel, Category>();
             CreateMap<OrderViewModel, Order>();

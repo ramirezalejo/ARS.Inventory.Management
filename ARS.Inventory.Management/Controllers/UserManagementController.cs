@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace ARS.Inventory.Management.Controllers
 {
+    [Authorize(Roles = "Admin,WarehouseManager")]
     public class UserManagementController : Controller
     {
         InventoryDbContext _dbContext;

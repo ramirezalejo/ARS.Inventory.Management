@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ARS.Inventory.Management.Web.Models
@@ -47,6 +48,7 @@ namespace ARS.Inventory.Management.Web.Models
         public string LastName { get; set; }
         public string CardNumber { get; set; }
         public string PhoneNumber { get; set; }
+        [ValidateNever]
         public string RoleName { get; set; }
 
     }

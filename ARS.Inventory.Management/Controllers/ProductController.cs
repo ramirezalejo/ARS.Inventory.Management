@@ -2,11 +2,13 @@
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Web.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ARS.Inventory.Management.Controllers
 {
+    [Authorize(Roles = "Admin,WarehouseManager")]
     public class ProductController : Controller
     {
         private ICategoryService _category;
