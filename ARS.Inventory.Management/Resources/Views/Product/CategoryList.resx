@@ -120,14 +120,20 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="Category Actions" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
   <data name="Category List" xml:space="preserve">
     <value>Listado</value>
   </data>
   <data name="Category Management" xml:space="preserve">
     <value>Administrar Categorias</value>
   </data>
-  <data name="Cateogry Name" xml:space="preserve">
+  <data name="Category Name" xml:space="preserve">
     <value>Nombre</value>
+  </data>
+  <data name="Enter the new category" xml:space="preserve">
+    <value>Ingrese una nueva categoria</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>

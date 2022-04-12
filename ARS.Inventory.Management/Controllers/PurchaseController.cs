@@ -1,11 +1,13 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace ARS.Inventory.Management.Controllers
 {
+    [Authorize(Roles = "Admin,WarehouseManager")]
     public class PurchaseController : Controller
     {
         private IProductService _product;

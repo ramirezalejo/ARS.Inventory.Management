@@ -1,8 +1,10 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ARS.Inventory.Management.Controllers
 {
+    [Authorize(Roles = "Admin,WarehouseManager")]
     public class SupplierController : Microsoft.AspNetCore.Mvc.Controller
     {
         ISupplierService _supplier;
