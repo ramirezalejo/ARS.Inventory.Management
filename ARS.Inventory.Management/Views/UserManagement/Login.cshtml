@@ -55,37 +55,42 @@
 
 
     <script>
-      $("#btnLogin").click(function () {
-    $.ajax({
-        // Post username, password & the grant type to /token
-        url: '/api/Account/login',
-        method: 'POST',
-        async: true,
-        data: {
-            Username: $("#username").val(),
-            Password: $("#password").val()
-        },
-        // When the request completes successfully, save the
-        // access token in the browser session storage and
-        // redirect the user to Data.html page. We do not have
-        // this page yet. So please add it to the
-        // EmployeeService project before running it
-        success: function (response) {
-            sessionStorage.setItem("accessToken", response.access_token);
-            toastr.info("Redirecting to Home Page !", { timeOut: 2000 })
-            window.location.href = '/Home/Index';
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
 
-        },
-        error: function (error) {
-           toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
-        }
-    });
-});
+        $("#btnLogin").click(function () {
+            $.ajax({
+                // Post username, password & the grant type to /token
+                url: '/api/Account/login',
+                method: 'POST',
+                async: true,
+                data: {
+                    Username: $("#username").val(),
+                    Password: $("#password").val()
+                },
+                // When the request completes successfully, save the
+                // access token in the browser session storage and
+                // redirect the user to Data.html page. We do not have
+                // this page yet. So please add it to the
+                // EmployeeService project before running it
+                success: function (response) {
+                    const returnUrl = urlParams.get('ReturnUrl')
 
-      $("#btnRegister").click(function () {
-         
-            window.location.href = '/UserManagement/Register';
+                    sessionStorage.setItem("accessToken", response.access_token);
+                    toastr.info("Redirecting to Home Page !", { timeOut: 2000 })
+                    window.location.href = returnUrl ?? '/Home/Index';
+
+                },
+                error: function (error) {
+                   toastr.error("Encountered an error !" + error.responseText, { timeOut: 5000 })
+                }
+            });
         });
+
+              $("#btnRegister").click(function () {
+
+                    window.location.href = '/UserManagement/Register';
+                });
     </script>
 
 </body>

@@ -9,7 +9,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY . .
-RUN echo ls /src
 
 RUN dotnet restore "ARS.Inventory.Management/ARS.Inventory.Management.Web.csproj"
 COPY . .
