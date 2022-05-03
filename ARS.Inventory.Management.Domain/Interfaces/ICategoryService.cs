@@ -11,5 +11,6 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         Task InsertAsync(Category category);
         void Update(Category category);
         void Delete(int categoryId);
+        Task<IEnumerable<Category>> GetAllAsync();
     }
 }

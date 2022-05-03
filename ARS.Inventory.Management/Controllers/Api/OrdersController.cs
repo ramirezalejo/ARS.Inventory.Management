@@ -2,6 +2,7 @@
 using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Web.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,12 @@ namespace ARS.Inventory.Management.Controllers.Api
     public class OrdersController : Controller
     {
         private IOrderService _order;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrderService order)
+        public OrdersController(IOrderService order, IMapper mapper)
         {
-            this._order = order;
+            _order = order;
+            _mapper = mapper;
         }
 
 
@@ -24,7 +27,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             var result = _order.GetAll().Select(x => new OrderViewModel
             {
                 Id = x.Id,
-                ProductId = x.ProductId,
+                Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
                 UserId = x.UserId,
                 OrderDate = x.OrderDate,
                 ConfirmDate = x.ConfirmDate,
@@ -40,7 +43,7 @@ namespace ARS.Inventory.Management.Controllers.Api
             var result = _order.GetAllConfirmedOrders().Select(x => new OrderViewModel
             {
                 Id = x.Id,
-                ProductId = x.ProductId,
+                Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
                 UserId = x.UserId,
                 OrderDate = x.OrderDate,
                 ConfirmDate = x.ConfirmDate,
@@ -57,9 +60,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 .Select(x => new OrderViewModel
                 {
                     Id = x.Id,
-                    ProductId = x.ProductId,
-                    ProductName = x.Product.Name,
-                    ProductCategory = x.Product.Category.Name,
+                    Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
                     UserId = x.UserId,
                     OrderDate = x.OrderDate,
                     ConfirmDate = x.ConfirmDate,
@@ -83,7 +84,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 {
                     Id = result.Id,
                     OrderDate = result.OrderDate,
-                    ProductId = result.ProductId,
+                    Product = _mapper.Map<Product, ProductsViewModel>(result.Product),
                     CustomerId= result.CustomerId,
                     ConfirmDate = result.ConfirmDate,
                     ConfirmStatus = result.ConfirmStatus,

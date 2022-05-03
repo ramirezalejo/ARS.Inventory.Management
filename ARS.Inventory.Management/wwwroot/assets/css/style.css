@@ -8267,14 +8267,15 @@ canvas {
   padding: 0;
 }
 .be-top-header .navbar-header .navbar-brand {
-  line-height: 60px;
-  height: 60px;
-  width: 230px;
-  background-image: url("../img/logo.png");
-  background-repeat: no-repeat;
-  background-position: 20px center;
-  padding: 0 20px;
-  margin: 0;
+    line-height: 60px;
+    height: 60px;
+    width: 230px;
+    background-image: url("../img/logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0 20px;
+    margin: 0;
+    background-size: 35% 100%;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-resolution: 192dpi) {
   .be-top-header .navbar-header .navbar-brand {

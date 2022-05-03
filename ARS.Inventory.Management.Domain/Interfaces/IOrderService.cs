@@ -13,5 +13,6 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         void Update(Order order);
         void Delete(int orderId);
         void ConfirmOrder(int orderId);
+        Task<Order> GetByIdAsync(int orderId);
     }
 }

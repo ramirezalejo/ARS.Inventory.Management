@@ -29,19 +29,19 @@ namespace ARS.Inventory.Management.Application.Services
         }
         public IEnumerable<Order> GetAllConfirmedOrders()
         {
-            var result = _orderRepository.GetAll(x => x.ConfirmStatus == true);
+            var result = _orderRepository.Get(x => x.ConfirmStatus == true);
             return result;
         }
 
         public IEnumerable<Order> GetMyOrders(string userId)
         {
-            var result = _orderRepository.GetAll(x => x.UserId == userId);
+            var result = _orderRepository.Get(x => x.UserId == userId);
             return result;
         }
 
         public IEnumerable<Order> GetAllUnConfirmedOrders()
         {
-            var result = _orderRepository.GetAll(x => x.ConfirmStatus == false);
+            var result = _orderRepository.Get(x => x.ConfirmStatus == false);
             return result;
         }
 
@@ -52,6 +52,11 @@ namespace ARS.Inventory.Management.Application.Services
                 result = _orderRepository.GetById(x => x.Id == orderId);
 
             return result;
+        }
+
+        public Task<Order> GetByIdAsync(int orderId)
+        {
+            return _orderRepository.GetByIdAsync(x => x.Id == orderId);
         }
 
         public void Insert(Order order)

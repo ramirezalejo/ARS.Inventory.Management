@@ -40,9 +40,19 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
             return dbSet.AsEnumerable().Skip(page * pageSize).Take(pageSize);
         }
 
-        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
+        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).AsEnumerable();
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter)
+        {
+            return await dbSet.Where(filter).ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await dbSet.ToListAsync();
         }
 
         public virtual void Insert(T entity)
@@ -80,7 +90,7 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
 
         public virtual void Delete(Expression<Func<T, bool>> filter)
         {
-            IEnumerable<T> entities = this.GetAll(filter);
+            IEnumerable<T> entities = this.Get(filter);
             foreach (T entity in entities)
             {
                 if (_unitOfWork.Db.Entry(entity).State == EntityState.Detached)

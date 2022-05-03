@@ -22,6 +22,11 @@ namespace ARS.Inventory.Management.Application.Services
             return result;
         }
 
+        public Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return categoryRepository.GetAllAsync();
+        }
+
         public Category GetById(int categoryId)
         {
             Category result = null;
