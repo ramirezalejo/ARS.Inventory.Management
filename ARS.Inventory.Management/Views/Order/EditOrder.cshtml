@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model ARS.Inventory.Management.Web.Models.OrderViewModel
+@{
+    ViewData["Title"] = "EditOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default panel-border-color panel-border-color-primary">
+            @if (Model != null)
+            {
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["Update Order"]</b></div>
+            }
+            else
+            {
+                <div class="panel-heading panel-heading-divider" style="font-size: 22px"><b>@Localizer["New Order"]</b></div>
+
+            }
+            <div class="panel-body">
+                @* @if (Model.Id != null)
+                    {*@
+                <form action="#" class="form-horizontal group-border-dashed" novalidate="">
+                    <br>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Date"] :</label>
+                        <div class="col-sm-6">
+                            <InputDate id="orderDate" value="@Model?.OrderDate" lang="es-co" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Category"]:</label>
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(m => m.Category.Name, (SelectList)ViewBag.Category, "- Select Category -", new { @class = "form-control", @id = "categoryId"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label yazi">@Localizer["Product"]:</label>
+                        <div class="col-sm-6">
+                            <select class="js-data-ajax form-group col-sm-6 form-control select2-selection" name="product-select" id="product-select">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                @*}*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var productList = [];
+$(document).ready(function () {
+    $('.js-basic-single').select2();
+
+
+    //$("#categoryId").change(function () {
+    //    var catId = $('#categoryId option:selected').val();
+    //    $.getJSON("/api/Products/ProductsByCategory", { categoryId: catId },
+    //            function (data) {
+    //                productList = data;
+    //                var select = $("#product-select");
+    //                select.empty();
+    //                select.append($('<option/>', {
+    //                    value: 0,
+    //                    text: "Select product"
+    //                }));
+    //                $.each(data, function (index, itemData) {
+    //                    select.append($('<option/>', {
+    //                        value: itemData.id,
+    //                        text: itemData.name
+    //                    }));
+    //                });
+    //            });
+    //});
+
+    //$('#product-input').change(function () {
+    //     var productInput = $('#product-input').val();
+    //});
+
+    $('.js-data-ajax').select2({
+        ajax: {
+        url: "/api/Products/ProductsByCriteria",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+            query: params.term,
+            page: params.page,
+            categoryId: $('#categoryId').val()
+            };
+        },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+
+            return {
+            results: data.items,
+            pagination: {
+                more: (params.page * 10) < data.total_count
+            }
+            };
+        },
+        cache: true
+        },
+        placeholder: '- Select Product -',
+        minimumInputLength: 3,
+        templateResult: formatItems
+    });
+
+    function formatItems (item) {
+      return item.name;
+    }
+});
+</script>

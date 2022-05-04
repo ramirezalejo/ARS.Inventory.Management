@@ -18698,14 +18698,14 @@ form.dropzone .note {
   height: 100%;
   margin: 0;
 }
-.select2-container--default .select2-selection--single .select2-selection__arrow b:after {
+/*.select2-container--default .select2-selection--single .select2-selection__arrow b:after {
   content: "\f2f9";
   font-family: 'Material Icons';
   font-size: 25px;
   font-weight: normal;
   line-height: 46px;
   color: #404040;
-}
+}*/
 .select2-container--default .select2-selection--multiple {
   min-height: 46px;
 }
@@ -18733,9 +18733,9 @@ form.dropzone .note {
 .select2-container--default.select2-container--default.select2-container--focus .select2-selection--multiple {
   border: 1px solid #d5d8de;
 }
-.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b:after {
+/*.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b:after {
   content: "\f2f9";
-}
+}*/
 .select2-container--default .select2-results__group {
   font-size: 12px;
   color: #5a5a5a;

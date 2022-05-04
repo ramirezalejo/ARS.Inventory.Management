@@ -44,6 +44,16 @@ namespace ARS.Inventory.Management.Application.Services
             return _productReposiyory.GetAsync(filter);
         }
 
+        public Task<IEnumerable<Product>> GetPagedAsync(Expression<Func<Product, bool>> filter, int skip)
+        {
+            return _productReposiyory.GetPagedAsync(filter, skip);
+        }
+
+        public Task<int> GetCountAsync(Expression<Func<Product, bool>> filter)
+        {
+            return _productReposiyory.GetCountAsync(filter);
+        }
+
         public Product GetById(int productId)
         {
             Product result = null;

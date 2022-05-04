@@ -36,6 +36,8 @@ namespace ARS.Inventory.Management.Controllers.Api
             return Ok(result);
         }
 
+        
+
         [Route("api/Orders/ConfirmedOrders")]
         [HttpGet]
         public IActionResult GetAllConfirmedOrders()

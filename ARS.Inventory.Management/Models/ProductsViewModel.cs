@@ -14,7 +14,6 @@ namespace ARS.Inventory.Management.Web.Models
         public int SupplierId { get; set; }
         public string CategoryName { get; set; }
 
-
         public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
     }

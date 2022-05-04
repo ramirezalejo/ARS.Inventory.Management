@@ -49,6 +49,15 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
         {
             return await dbSet.Where(filter).ToListAsync();
         }
+        public virtual async Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> filter, int skip)
+        {
+            return await dbSet.Where(filter).Skip(skip).ToListAsync();
+        }
+
+        public virtual async Task<int> GetCountAsync(Expression<Func<T, bool>> filter)
+        {
+            return await dbSet.CountAsync(filter);
+        }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {

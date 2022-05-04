@@ -16,9 +16,12 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/jquery.vectormap/jquery-jvectormap-1.2.2.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/jqvmap/jqvmap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="~/Content/assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/style.css"  />
+    <link rel="stylesheet" href="~/Content/assets/css/select2.min.css"  />
+    
     <script src="~/Scripts/jquery-3.6.0.js"></script>
     <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Content/assets/js/select2.min.js" defer></script>
     <link href="~/Content/toastr.css" rel="stylesheet" />
 
     @*<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />*@
@@ -147,6 +150,9 @@
                                     <li class="parent">
                                         <a href="#"><i class="icon mdi mdi-shopping-cart"></i><span>@Localizer["Order Management"]</span></a>
                                         <ul class="sub-menu">
+                                            <li>
+                                                <a href="@Url.Action("EditOrder","Order")" style="font-size: 14px">@Localizer["Create Order"]</a>
+                                            </li>
                                             <li>
                                                 <a href="@Url.Action("ListOrder","Order")" style="font-size: 14px">@Localizer["Orders"]</a>
                                             </li>

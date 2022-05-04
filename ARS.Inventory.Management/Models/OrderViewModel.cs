@@ -18,7 +18,7 @@ namespace ARS.Inventory.Management.Web.Models
         public string ShippingAddress { get; set; }
 
         public  ProductsViewModel Product { get; set; }
-        public CategoryViewModel Category { get; set; }
+        public CategoryViewModel Category { get; set; } = new CategoryViewModel();
         public ApplicationUser User { get; set; }
         public IdentityRole UserRole { get; set; }
     }

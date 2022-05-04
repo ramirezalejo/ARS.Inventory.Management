@@ -1,8 +1,10 @@
 ﻿using ARS.Inventory.Management.Domain.Interfaces;
 using ARS.Inventory.Management.Domain.Models;
 using ARS.Inventory.Management.Web.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace ARS.Inventory.Management.Controllers.Api
 {
@@ -11,9 +13,12 @@ namespace ARS.Inventory.Management.Controllers.Api
     public class ProductsController : Controller
     {
         private IProductService _product;
-        public ProductsController(IProductService product)
+        private readonly IMapper _mapper;
+
+        public ProductsController(IProductService product, IMapper mapper)
         {
             this._product = product;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -55,6 +60,42 @@ namespace ARS.Inventory.Management.Controllers.Api
                 return Ok(vm);
             }
             return Ok("Item Not Found !");
+        }
+
+        [Route("/api/Products/ProductsByCategory")]
+        [HttpGet]
+        public async Task<JsonResult> ProductsByCategory(string categoryId)
+        {
+            if (int.TryParse(categoryId, out int catId))
+            {
+                var products = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductsViewModel>>(await _product.GetAsync(x => x.CategoryId == catId));
+                return Json(products);
+            }
+
+            return Json(null);
+
+        }
+
+        [Route("/api/Products/ProductsByCriteria")]
+        [HttpGet]
+        public async Task<JsonResult> ProductsByCriteria(string query, string page, string categoryId)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return Json(null);
+
+            int pageNum = 0;
+            int.TryParse(page, out pageNum);
+            int skip = pageNum * 10;
+            Expression<Func<Product, bool>> filter = int.TryParse(categoryId, out int catId) 
+                ? x => x.CategoryId == catId && x.Name.ToLower().Contains(query.ToLower())
+                : x => x.Name.ToLower().Contains(query.ToLower());
+
+            var items =  _mapper.Map<IEnumerable<Product>, IEnumerable<ProductsViewModel>>(await _product.GetPagedAsync(filter, skip));
+            var total_count = await _product.GetCountAsync(filter);
+
+
+
+            return Json(new { items, total_count });
         }
 
         [HttpPost]

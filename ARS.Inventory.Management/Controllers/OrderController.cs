@@ -4,6 +4,7 @@ using ARS.Inventory.Management.Web.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ARS.Inventory.Management.Controllers
 {
@@ -11,11 +12,18 @@ namespace ARS.Inventory.Management.Controllers
     public class OrderController : Controller
     {
         private IOrderService _order;
+        private readonly IProductService _product;
+        private readonly ICategoryService _category;
         private readonly IMapper _mapper;
 
-        public OrderController(IOrderService orders, IMapper mapper )
+        public OrderController(IOrderService orders, 
+            IProductService product,
+            ICategoryService category,
+            IMapper mapper )
         {
             this._order = orders;
+            _product = product;
+            _category = category;
             _mapper = mapper;
         }
         // GET: Orders
@@ -49,9 +57,19 @@ namespace ARS.Inventory.Management.Controllers
             return View(result);
         }
 
-        public IActionResult EditOrder()
+        public IActionResult EditOrder(int id)
         {
-            return View();
+            var category = _category.GetAll().ToList();
+            ViewBag.Category = new SelectList(category, "Id", "Name");
+            if (id > 0)
+            {
+                var order = _order.GetById(id);
+                if (order != null)
+                {
+                    return View("EditOrder", _mapper.Map<Order, OrderViewModel>(order));
+                }
+            }
+            return View("EditOrder");
         }
 
     }
