@@ -17,10 +17,6 @@ namespace ARS.Inventory.Management.Web.Controllers
             _customerService = customerService;
             _mapper = mapper;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult ListCustomer(int page = 1, int pageSize = 10)
         {
@@ -45,7 +41,7 @@ namespace ARS.Inventory.Management.Web.Controllers
                 }
             }
 
-            return View("AddPurchase");
+            return View("AddCustomer");
         }
     }
 }
