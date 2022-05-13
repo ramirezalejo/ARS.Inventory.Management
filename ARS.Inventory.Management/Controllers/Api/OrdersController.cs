@@ -20,32 +20,14 @@ namespace ARS.Inventory.Management.Controllers.Api
             _mapper = mapper;
         }
 
-
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var result = _order.GetAll().Select(x => new OrderViewModel
-            {
-                Id = x.Id,
-                Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
-                UserId = x.UserId,
-                OrderDate = x.OrderDate,
-                ConfirmDate = x.ConfirmDate,
-                ConfirmStatus = x.ConfirmStatus
-            });
-            return Ok(result);
-        }
-
-        
-
         [Route("api/Orders/ConfirmedOrders")]
         [HttpGet]
         public IActionResult GetAllConfirmedOrders()
         {
-            var result = _order.GetAllConfirmedOrders().Select(x => new OrderViewModel
+            var result = _order.GetLatestConfirmedOrders().Select(x => new OrderViewModel
             {
                 Id = x.Id,
-                Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
+                OrderDetails = _mapper.Map<List<OrderDetail>, List<OrderDetailViewModel>>(x.OrderDetails),
                 UserId = x.UserId,
                 OrderDate = x.OrderDate,
                 ConfirmDate = x.ConfirmDate,
@@ -53,6 +35,8 @@ namespace ARS.Inventory.Management.Controllers.Api
             });
             return Ok(result);
         }
+
+
         [Route("api/Orders/GetMyOrders")]
         [HttpGet]
         public IActionResult GetMyOrders()
@@ -62,7 +46,7 @@ namespace ARS.Inventory.Management.Controllers.Api
                 .Select(x => new OrderViewModel
                 {
                     Id = x.Id,
-                    Product = _mapper.Map<Product, ProductsViewModel>(x.Product),
+                    OrderDetails = _mapper.Map<List<OrderDetail>, List<OrderDetailViewModel>>(x.OrderDetails),
                     UserId = x.UserId,
                     OrderDate = x.OrderDate,
                     ConfirmDate = x.ConfirmDate,
@@ -86,8 +70,8 @@ namespace ARS.Inventory.Management.Controllers.Api
                 {
                     Id = result.Id,
                     OrderDate = result.OrderDate,
-                    Product = _mapper.Map<Product, ProductsViewModel>(result.Product),
-                    CustomerId= result.CustomerId,
+                    OrderDetails = _mapper.Map<List<OrderDetail>, List<OrderDetailViewModel>>(result.OrderDetails),
+                    CustomerId = result.CustomerId,
                     ConfirmDate = result.ConfirmDate,
                     ConfirmStatus = result.ConfirmStatus,
                     UserId = result.UserId
@@ -97,32 +81,35 @@ namespace ARS.Inventory.Management.Controllers.Api
             return Ok("Item Not Found!");
         }
         [HttpPost]
-        public IActionResult Insert(OrderViewModel model)
+        public async Task<IActionResult> Insert(OrderViewModel model)
         {
+            //TODO: Validate product existence
+
             var user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Order order = new Order
             {
-                ProductId = model.ProductId,
+
+                OrderDetails = _mapper.Map<List<OrderDetailViewModel>, List<OrderDetail>>(model.OrderDetails),
                 UserId = user,
                 CustomerId = model.CustomerId,
                 ShippingAddress = model.ShippingAddress
             };
-            _order.Insert(order);
+            await _order.InsertAsync(order);
             return Ok(order);
         }
 
         [HttpPut]
-        public IActionResult Update(OrderViewModel model)
+        public async Task<IActionResult> UpdateAsync(OrderViewModel model)
         {
             Order order = new Order
             {
                 Id = model.Id,
-                ProductId = model.ProductId,
+                OrderDetails = _mapper.Map<List<OrderDetailViewModel>, List<OrderDetail>>(model.OrderDetails),
                 UserId = model.UserId,
                 CustomerId = model.CustomerId,
                 ShippingAddress = model.ShippingAddress
             };
-            _order.Update(order);
+            await _order.UpdateAsync(order);
             return Ok(order);
         }
 

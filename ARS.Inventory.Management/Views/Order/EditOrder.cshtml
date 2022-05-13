@@ -3,6 +3,8 @@
 @model ARS.Inventory.Management.Web.Models.OrderViewModel
 @{
     ViewData["Title"] = "EditOrder";
+    var products = ViewData["products"] as List<ProductsViewModel>;
+    var category = new CategoryViewModel();
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,22 +28,60 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Date"] :</label>
                         <div class="col-sm-6">
-                            <InputDate id="orderDate" value="@Model?.OrderDate" lang="es-co" />
+                            <input type="date"  class="form-control parsley-error"  name="DeliveryDate" id="deliveryTime" value="@Model?.OrderDate.ToString("yyyy-MM-dd")">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label yazi" for="sel1">@Localizer["Category"]:</label>
                         <div class="col-sm-6">
-                            @Html.DropDownListFor(m => m.Category.Name, (SelectList)ViewBag.Category, "- Select Category -", new { @class = "form-control", @id = "categoryId"})
+                            @Html.DropDownListFor(m => category, (SelectList)ViewBag.Category, "- Select Category -", new { @class = "form-control", @id = "categoryId"})
                         </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-3 control-label yazi">@Localizer["Product"]:</label>
                         <div class="col-sm-6">
                             <select class="js-data-ajax form-group col-sm-6 form-control select2-selection" name="product-select" id="product-select">
                             </select>
                         </div>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Quantity"] :</label>
+                        <div class="col-sm-6">
+                            <input type="number" data-parsley-max="6" min="1" class="form-control parsley-error" data-parsley-id="39" name="Quantity" id="quantity">
+                        </div>
+                        <label class="col-sm-3 control-label yazi">@Localizer["Selling Price"]:</label>
+                        <div class="col-sm-6">
+                            <input type="text" data-parsley-max="6" placeholder="@Localizer["Enter the sales price"]"..." class="form-control parsley-error" data-parsley-id="39" name="SellingPrice" id="productSelling">
+                        </div>
                     </div>
+                    <div class="panel-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr style="font-size: 16px;  background-color:lavender">
+                                <th width="25%">@Localizer["Product Name"]</th>
+                                <th width="26%">@Localizer["Quantity"]</th>
+                                <th width="20%">@Localizer["Unit Price"]</th>
+                                <th width="20%">@Localizer["Selling Price"]</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(Model?.OrderDetails is not null)
+                            @foreach (var item in Model?.OrderDetails)
+                            {
+                                <tr>
+                                    <td>@item.Product.Name</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.SellingPrice</td>
+                                    <td>@item.Price</td>
+                                    <td class="text-right">
+                                        <div class="btn-group btn-hspace">
+                                            <button type="button" class="btn btn-success " onclick="RemoveItem(@item.Id)">@Localizer["Remove"]</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
                 </form>
                 @*}*@
 

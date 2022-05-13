@@ -10,6 +10,7 @@ namespace ARS.Inventory.Management.Web.Mappers
         {
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Order, OrderViewModel>();
+            CreateMap<OrderDetail, OrderDetailViewModel>();
             CreateMap<Supplier, SupplierViewModel>();
             CreateMap<Product, ProductsViewModel>();
             CreateMap<Purchase, PurchaseViewModel>();
@@ -17,6 +18,7 @@ namespace ARS.Inventory.Management.Web.Mappers
 
             CreateMap<CategoryViewModel, Category>();
             CreateMap<OrderViewModel, Order>();
+            CreateMap<OrderDetailViewModel, OrderDetail>();
             CreateMap<SupplierViewModel, Supplier>();
             CreateMap<ProductsViewModel, Product>();
             CreateMap<PurchaseViewModel, Purchase>();

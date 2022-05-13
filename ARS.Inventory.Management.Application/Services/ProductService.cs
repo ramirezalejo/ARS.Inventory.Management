@@ -76,6 +76,11 @@ namespace ARS.Inventory.Management.Application.Services
                 _productReposiyory.Update(product);
         }
 
+        public Task UpdateAsync(Product product)
+        {
+            return _productReposiyory.UpdateAsync(product);
+        }
+
         public void Delete(int productId)
         {
             if (productId != null)

@@ -29,30 +29,16 @@ namespace ARS.Inventory.Management.Controllers
         // GET: Orders
         public ActionResult ListOrder()
         {
-            var result = _order.GetAllUnConfirmedOrders()
-            .Select(m => new OrderViewModel
-            {
-                Id = m.Id,
-                Product = _mapper.Map<Product, ProductsViewModel>(m.Product),
-                User = m.User,
-                OrderDate = m.OrderDate,
-                ConfirmStatus = m.ConfirmStatus
-            }).OrderByDescending(x=>x.OrderDate);
+            var result = _order.GetLatestUnConfirmedOrders()
+            .Select(m => _mapper.Map<Order, OrderViewModel>(m)).OrderByDescending(x => x.OrderDate);
 
             return View(result);
         }
 
         public ActionResult ConfirmedListOrder()
         {
-            var result = _order.GetAllConfirmedOrders()
-            .Select(m => new OrderViewModel
-            {
-                Id = m.Id,
-                Product = _mapper.Map<Product, ProductsViewModel>(m.Product),
-                User = m.User,
-                OrderDate = m.OrderDate,
-                ConfirmStatus = m.ConfirmStatus
-            }).OrderByDescending(x=>x.OrderDate);
+            var result = _order.GetLatestConfirmedOrders()
+            .Select(m => _mapper.Map<Order, OrderViewModel>(m)).OrderByDescending(x=>x.ConfirmDate);
 
             return View(result);
         }

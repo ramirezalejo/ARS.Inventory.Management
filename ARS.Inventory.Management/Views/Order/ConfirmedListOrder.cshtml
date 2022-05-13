@@ -20,7 +20,8 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr style="font-size: 16px;  background-color:lavender;">
-                                <th width="25%">@Localizer["Product Name"]</th>
+                                <th width="20%">@Localizer["CustomerName"]</th>
+                                <th width="20%">@Localizer["Value"]</th>
                                 <th width="20%">@Localizer["User"]</th>
                                 <th width="20%">@Localizer["Order Date"]</th>
                                 <th width="20%">@Localizer["Confirmed Date"]</th>
@@ -31,7 +32,8 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.Product.Name</td>
+                                    <td>@item.CustomerName</td>
+                                    <td>@item.OrderDetails.Sum(x => x.Price * x.Quantity)</td>
                                     <td>@item.User.Email</td>
                                     <td>@item.OrderDate</td>
                                     <td>@item.ConfirmDate</td>

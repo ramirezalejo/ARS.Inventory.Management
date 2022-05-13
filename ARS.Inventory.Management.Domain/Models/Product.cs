@@ -22,7 +22,6 @@ namespace ARS.Inventory.Management.Domain.Models
         public virtual Supplier Supplier { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Purchase> Purchase { get; set; }
 
 

@@ -72,6 +72,17 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
 
         }
 
+        public virtual void InsertAll(IList<T> entities)
+        {
+
+            foreach (var entity in entities)
+            {
+                dbSet.AddAsync(entity);
+            }
+            this._unitOfWork.Db.SaveChanges();
+
+        }
+
         public virtual async Task InsertAsync(T entity)
         {
 
@@ -80,11 +91,27 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
 
         }
 
+        public virtual Task InsertAllAsync(IList<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                dbSet.AddAsync(entity);
+            }
+            return this._unitOfWork.Db.SaveChangesAsync();
+        }
+
         public virtual void Update(T entity)
         {
             dbSet.Attach(entity);
             _unitOfWork.Db.Entry(entity).State = EntityState.Modified;
             this._unitOfWork.Db.SaveChanges();
+        }
+
+        public virtual Task UpdateAsync(T entity)
+        {
+            dbSet.Attach(entity);
+            _unitOfWork.Db.Entry(entity).State = EntityState.Modified;
+            return this._unitOfWork.Db.SaveChangesAsync();
         }
 
         public virtual void UpdateAll(IList<T> entities)
@@ -109,6 +136,19 @@ namespace ARS.Inventory.Management.Infrastructure.Repository.Context
                 dbSet.Remove(entity);
             }
             this._unitOfWork.Db.SaveChanges();
+        }
+
+        public virtual Task DeleteAsync(IEnumerable<T> entities)
+        {
+            foreach (T entity in entities)
+            {
+                if (_unitOfWork.Db.Entry(entity).State == EntityState.Detached)
+                {
+                    dbSet.Attach(entity);
+                }
+                dbSet.Remove(entity);
+            }
+            return this._unitOfWork.Db.SaveChangesAsync();
         }
 
         // ------- Extra Methods ------ ///

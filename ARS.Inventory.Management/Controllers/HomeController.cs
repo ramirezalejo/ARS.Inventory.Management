@@ -28,6 +28,8 @@ namespace ARS.Inventory.Management.Controllers
 
         public Microsoft.AspNetCore.Mvc.ActionResult Index()
         {
+
+            //TODO: Make all the calls here async configureawait false
             var vm = new HomeViewModel();
 
             //vm.TotalSuppliers = _supplier.GetAll().Count<Supplier>();
@@ -53,19 +55,19 @@ namespace ARS.Inventory.Management.Controllers
                 #endregion
 
                 #region Total Revenue 
-                var order = _order.GetAll();
+                var orders = _order.GetCurrentMonthOrders();
 
-                foreach (var item in order)
+                foreach (var item in orders)
                 {
-                    vm.TotalOrders += item.Product.SellingPrice;
+                    vm.TotalOrders += item.OrderDetails.Sum(x => x.SellingPrice * x.Quantity);
                 }
                 #endregion
 
                 #region Profit
 
-                foreach (var item in order)
+                foreach (var item in orders)
                 {
-                    vm.Profit += (item.Product.SellingPrice - item.Product.PurchasingPrice);
+                    vm.Profit += (item.OrderDetails.Sum(x => x.SellingPrice - x.Product.PurchasingPrice * x.Quantity));
                 }
 
                 #endregion
@@ -75,18 +77,18 @@ namespace ARS.Inventory.Management.Controllers
            
 
             #region Top Seller
-            vm.TopSeller = _order.GetAll()
-                .GroupBy(i => new { i.ProductId, i.Product.Name })
+            vm.TopSeller = _order.GetCurrentMonthOrders().SelectMany(x => x.OrderDetails)
+                .GroupBy(i => new { i.Product.Id, i.Product.Name})
                 .Select(i => new TopSeller
                 {
                     ProductName = i.Key.Name,
-                    ProductCount = i.Count()
+                    ProductCount = i.Sum(x => x.Quantity * i.Count())
                 }).OrderByDescending(x => x.ProductCount).Take(5);
             #endregion
 
             #region Most Sold Categories
 
-            vm.MostSoldCategories = _order.GetAll()
+            vm.MostSoldCategories = _order.GetCurrentMonthOrders().SelectMany(x => x.OrderDetails)
                .GroupBy(i => new { i.Product.Category.Id, i.Product.Category.Name })
                .Select(i => new MostSoldCategories
                {
@@ -96,7 +98,7 @@ namespace ARS.Inventory.Management.Controllers
             #endregion
 
             #region Most Profitable Products
-            vm.MostProfitableProducts = _order.GetAll()
+            vm.MostProfitableProducts = _order.GetCurrentMonthOrders().SelectMany(x => x.OrderDetails)
                .GroupBy(i => new { i.Product.Id, i.Product.Name, i.Product.SellingPrice, i.Product.PurchasingPrice })
                .Select(i => new MostProfitableProducts
                {
@@ -111,7 +113,7 @@ namespace ARS.Inventory.Management.Controllers
 
             #endregion
 
-            vm.LatesOrders = _order.GetAll().OrderByDescending(x => x.OrderDate).Take(5);
+            vm.LatesOrders = _order.GetCurrentMonthOrders().OrderByDescending(x => x.OrderDate).Take(5);
             vm.LatesPurchases = _purchase.GetAll().OrderByDescending(x => x.CreatedTime).Take(5);
 
             vm.User = _user.GetAll().OrderByDescending(x => x.RegisteredDate).Take(5);

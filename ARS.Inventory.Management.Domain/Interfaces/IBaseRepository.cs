@@ -12,8 +12,11 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         void Insert(T entity);
         Task InsertAsync(T entity);
         void Update(T entity);
+        Task UpdateAsync(T entity);
         void UpdateAll(IList<T> entities);
+        Task InsertAllAsync(IList<T> entities);
         void Delete(Expression<Func<T, bool>> filter);
+        Task DeleteAsync(IEnumerable<T> entities);
         bool Exist(Expression<Func<T, bool>> filter);
 
     }

@@ -14,6 +14,7 @@ namespace ARS.Inventory.Management.Domain.Interfaces
         Product GetById(int productId);
         void Insert(Product product);
         void Update(Product product);
+        Task UpdateAsync(Product product);
         void Delete(int productId);
     }
 }

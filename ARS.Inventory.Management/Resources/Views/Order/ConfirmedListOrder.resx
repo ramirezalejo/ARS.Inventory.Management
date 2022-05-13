@@ -126,6 +126,9 @@
   <data name="Confirmed Status" xml:space="preserve">
     <value>Confirmado</value>
   </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
   <data name="Order Date" xml:space="preserve">
     <value>Fecha</value>
   </data>
@@ -134,5 +137,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>Usuario</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
   </data>
 </root>
